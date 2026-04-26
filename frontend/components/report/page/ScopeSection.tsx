@@ -1,6 +1,5 @@
 import type { ReportB } from '@/types'
 import { GateOverlay } from './shared'
-import { AIToolLogo } from './tool-logos'
 
 type ScopeSectionProps = {
   reportB: ReportB | null
@@ -114,8 +113,6 @@ export function ScopeSection({ reportB, gateUnlocked, onContinuePlan }: ScopeSec
   const coreLoopHeadline = reportB?.techApproach
     ? (reportB.techApproach.length > 120 ? `${reportB.techApproach.slice(0, 120)}...` : reportB.techApproach)
     : 'User searches by location -> views nail artist portfolio -> sends a booking request.'
-
-  const complexitySummary = reportB?.complexityExplanation ?? 'Your MVP has moderate implementation complexity. Keep scope tight and prioritize one core user outcome over breadth.'
 
   return (
     <div className="relative">
@@ -260,88 +257,6 @@ export function ScopeSection({ reportB, gateUnlocked, onContinuePlan }: ScopeSec
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="mb-8 h-px bg-[#e4e0d8]" />
-
-        <div className="mb-3">
-          <p className="mb-1 text-[10px] uppercase tracking-widest text-[#9e9b93]">Technical complexity</p>
-          <p className="text-[13px] text-[#5a574f]">An honest read of build difficulty, stack choice, and mistakes to avoid.</p>
-        </div>
-
-        <div className="mb-3 overflow-hidden rounded-xl border border-[#e4e0d8] bg-white">
-          <div className="border-b border-[#e4e0d8] px-5 py-4">
-            <div className="flex flex-wrap items-start gap-4">
-              <div>
-                <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">Complexity level</p>
-                {reportB?.complexityLevel && (
-                  <span className={`inline-flex items-center gap-2 rounded-[7px] ${complexityColor.border} ${complexityColor.bg} px-3 py-1.5 text-[14px] font-semibold ${complexityColor.text}`}>
-                    <span className={`h-2 w-2 rounded-full ${complexityColor.dot}`} />
-                    {reportB.complexityLevel}
-                  </span>
-                )}
-              </div>
-              <p className="flex-1 text-[13px] leading-7 text-[#5a574f]">
-                {complexitySummary}
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-[#1c1b18] px-5 py-4">
-            <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-white/40">Suggested approach</p>
-            {/* TODO: Make stack chips dynamic based on archetype when available in ReportB */}
-            <p className="mb-3 text-[12px] leading-6 text-white/80" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-              Next.js for frontend + Supabase for database, auth, and storage. Google Maps API for location. Cal.com embedded for booking. Vercel for hosting.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {['Next.js', 'Supabase', 'Google Maps API', 'Vercel', 'Tailwind CSS', 'Stripe'].map((tool) => (
-                <span key={tool} className="rounded-[5px] border border-white/25 bg-white/10 px-2.5 py-1 text-[11px] text-white/85" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-3 rounded-xl border border-[#e4e0d8] bg-white p-4">
-          <p className="mb-3 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">AI tools to build faster</p>
-          <div className="mb-3 flex flex-wrap gap-2">
-            {(reportB?.aiTools && reportB.aiTools.length > 0
-              ? reportB.aiTools
-              : [
-                  { tool: 'Lovable', useCase: 'Frontend-first, great for UI-heavy apps', url: 'https://lovable.dev' },
-                  { tool: 'Cursor', useCase: 'AI code editor for full-stack builds', url: 'https://cursor.sh' },
-                  { tool: 'v0 by Vercel', useCase: 'Generate UI components instantly', url: 'https://v0.dev' },
-                  { tool: 'Bolt', useCase: 'Instant full-stack prototypes', url: 'https://bolt.new' },
-                ]
-            ).map(({ tool, useCase, url }) => (
-              <a key={tool} href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-[#e4e0d8] bg-[#f8f6f1] px-3 py-2 text-[12px] text-[#1c1b18] no-underline">
-                <AIToolLogo tool={tool} />
-                <span className="font-medium">{tool}</span>
-                <span className="text-[#9e9b93]">{useCase}</span>
-              </a>
-            ))}
-          </div>
-          <a href="#" className="text-[12px] text-[#5a574f] no-underline">The perfect vibe coding stack for building your MVP in 2026 -&gt;</a>
-        </div>
-
-        <div className="mb-8">
-          <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">Common mistakes to avoid</p>
-          <div className="space-y-2">
-            {(reportB?.commonMistakes && reportB.commonMistakes.length > 0
-              ? reportB.commonMistakes
-              : [
-                  'Building too many features before validating one clear core workflow with real users.',
-                  'Delaying feedback loops until after launch instead of testing with users every week.',
-                  'Over-engineering infrastructure before proving retention and willingness to pay.',
-                ]
-            ).map((mistake) => (
-              <div key={mistake} className="flex items-start gap-3 rounded-lg border border-[#fde68a] bg-[#fffbeb] px-4 py-3">
-                <span className="mt-px text-[13px]">⚠</span>
-                <p className="text-[13px] leading-6 text-[#78350f]">{mistake}</p>
-              </div>
-            ))}
           </div>
         </div>
 

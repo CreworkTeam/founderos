@@ -479,8 +479,16 @@ export default function ReportPage() {
                 )}
 
                 <PlanSection
+                  reportB={reportB}
                   reportC={reportC}
                   gateUnlocked={gateUnlocked}
+                  capturedEmail={email}
+                  downloadEmail={downloadEmail}
+                  setDownloadEmail={(value) => { setDownloadEmail(value); if (downloadError) setDownloadError('') }}
+                  downloadLoading={downloadLoading}
+                  downloadSuccess={downloadSuccess}
+                  downloadError={downloadError}
+                  onDownloadReport={handleDownloadReport}
                 />
               </>
             )}

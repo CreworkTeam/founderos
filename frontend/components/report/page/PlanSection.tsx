@@ -1,54 +1,39 @@
-import type { ReportC } from '@/types'
+'use client'
+
+import type { ReportB, ReportC } from '@/types'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { GateOverlay } from './shared'
+import { AIToolLogo } from './tool-logos'
 
 type PlanSectionProps = {
+  reportB: ReportB | null
   reportC: ReportC | null
   gateUnlocked: boolean
+  capturedEmail: string | null
+  downloadEmail: string
+  setDownloadEmail: (value: string) => void
+  downloadLoading: boolean
+  downloadSuccess: boolean
+  downloadError: string
+  onDownloadReport: () => void
 }
 
-type RoadmapItem = { id: string; label: string; body: string }
-
-export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
-  const [completedRoadmap, setCompletedRoadmap] = useState<string[]>([])
+export function PlanSection({
+  reportB,
+  reportC,
+  gateUnlocked,
+  capturedEmail,
+  downloadEmail,
+  setDownloadEmail,
+  downloadLoading,
+  downloadSuccess,
+  downloadError,
+  onDownloadReport,
+}: PlanSectionProps) {
+  const [showDownloadForm, setShowDownloadForm] = useState(false)
   const economicsCanvasRef = useRef<HTMLCanvasElement | null>(null)
 
   const plan = reportC?.whatToBuildPlan
-
-  const buildDecisions = plan?.buildDecisions?.length
-    ? plan.buildDecisions
-    : [
-        {
-          group: 'build_first' as const,
-          title: 'Core user action',
-          body: 'The single thing a user opens your product to do. If this is not fast and reliable, nothing else matters.',
-        },
-        {
-          group: 'build_first' as const,
-          title: 'Basic onboarding flow',
-          body: 'Get a new user to their first value moment in under 2 minutes. This is your most important retention lever.',
-        },
-        {
-          group: 'build_v2' as const,
-          title: 'Advanced search and filters',
-          body: 'Start with simple discovery. Add sophisticated filtering once you understand how users actually search.',
-        },
-        {
-          group: 'build_v2' as const,
-          title: 'In-app payments',
-          body: 'Validate the core loop before adding transaction complexity. Start with manual or redirected payment flows.',
-        },
-        {
-          group: 'skip_for_now' as const,
-          title: 'AI-powered recommendations',
-          body: 'Requires data you do not have yet. Add this in V2 when usage patterns are clear.',
-        },
-        {
-          group: 'skip_for_now' as const,
-          title: 'Mobile app',
-          body: 'A responsive web app validates the core loop faster and cheaper. Native app comes after product-market fit.',
-        },
-      ]
 
   const northStar = plan?.northStarMetric ?? {
     metric: 'Core action completed per user per week',
@@ -69,27 +54,61 @@ export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
     ],
   }
 
-  const riskCallout = plan?.riskCallout ?? {
-    title: "Your biggest risk is not building the wrong product.",
-    body: 'It is not talking to enough real users before committing to a build. Manual validation is faster and cheaper than code.',
-  }
-
-  const roadmap: RoadmapItem[] = useMemo(() => {
+  const roadmapWeeks = useMemo(() => {
     if (reportC?.roadmap?.length) {
       return reportC.roadmap.slice(0, 4).map((week) => ({
-        id: `W${week.week}`,
-        label: `W${week.week}`,
-        body: `${week.title}. ${week.deliverables.slice(0, 2).join(' ')}`,
+        week: week.week,
+        title: week.title,
+        deliverables: week.deliverables,
       }))
     }
-
     return [
-      { id: 'W1', label: 'W1', body: 'Talk to 10 potential users. Confirm the problem is real and urgent before writing any code.' },
-      { id: 'W2', label: 'W2', body: 'Build a no-code or paper prototype. Watch 5 users interact with it and note every friction point.' },
-      { id: 'W3', label: 'W3', body: 'Build the smallest possible working version of your core loop. Get it in front of 3 real users.' },
-      { id: 'W4', label: 'W4', body: 'Measure your north star metric. If signal is weak, return to user interviews before adding features.' },
+      {
+        week: 1,
+        title: 'Discover & validate',
+        deliverables: [
+          'Talk to 10 potential users',
+          'Confirm the problem is real and urgent',
+          'Define your core user persona',
+        ],
+      },
+      {
+        week: 2,
+        title: 'Design & prototype',
+        deliverables: [
+          'Build a no-code or paper prototype',
+          'Run 5 user tests and note every friction point',
+          'Lock your core loop before writing code',
+        ],
+      },
+      {
+        week: 3,
+        title: 'Build the core loop',
+        deliverables: [
+          'Code the smallest working version',
+          'Get it in front of 3 real users',
+          'Deploy to a live URL',
+        ],
+      },
+      {
+        week: 4,
+        title: 'Ship & measure',
+        deliverables: [
+          'Track your north star metric from day 1',
+          'Interview every active user this week',
+          'Decide: iterate on retention or expand reach',
+        ],
+      },
     ]
   }, [reportC?.roadmap])
+
+  const complexityColor = reportB?.complexityLevel === 'Low'
+    ? { border: 'border-[#b5d6bf]', bg: 'bg-[#eaf3ec]', text: 'text-[#1e5c38]', dot: 'bg-[#1e5c38]' }
+    : reportB?.complexityLevel === 'Medium'
+    ? { border: 'border-[#fde68a]', bg: 'bg-[#fffbeb]', text: 'text-[#78350f]', dot: 'bg-[#78350f]' }
+    : { border: 'border-[#fecaca]', bg: 'bg-[#fff7f7]', text: 'text-[#7f1d1d]', dot: 'bg-[#7f1d1d]' }
+
+  const complexitySummary = reportB?.complexityExplanation ?? 'Your MVP has moderate implementation complexity. Keep scope tight and prioritize one core user outcome over breadth.'
 
   const isMarketplaceOrEcommerce = reportC?.archetype === 'marketplace' || reportC?.archetype === 'ecommerce'
   const primaryDatasetLabel = isMarketplaceOrEcommerce ? 'Bookings to reach $1k MRR' : 'Users needed for $1k MRR'
@@ -113,7 +132,6 @@ export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
           labels: unitEconomics.points.map((point) => point.commissionLabel),
           datasets: [
             {
-              // TODO: Keep these labels driven by archetype until API delivers explicit chart legend labels.
               label: primaryDatasetLabel,
               data: unitEconomics.points.map((point) => point.bookingsToTarget),
               backgroundColor: '#1a1917',
@@ -169,39 +187,111 @@ export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
     }
   }, [primaryDatasetLabel, secondaryDatasetLabel, unitEconomics.points])
 
-  const toggleRoadmapItem = (id: string) => {
-    setCompletedRoadmap((current) =>
-      current.includes(id) ? current.filter((value) => value !== id) : [...current, id]
-    )
-  }
-
   const sectionClass = 'mb-9'
 
   return (
     <div className="relative">
       <div className={`${!gateUnlocked ? 'pointer-events-none select-none' : ''}`}>
-        <div className={sectionClass}>
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#a8a59f]">What to build vs what to skip in version 1</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {buildDecisions.map((item, idx) => {
-              const isBuildFirst = item.group === 'build_first'
-              const isSkip = item.group === 'skip_for_now'
-              const label = isBuildFirst ? 'Build this first' : item.group === 'build_v2' ? 'Build in v2' : 'Skip for now'
 
-              return (
-                <div
-                  key={`${item.title}-${idx}`}
-                  className={`rounded-xl border bg-white p-4 ${isBuildFirst ? 'border-[#1a1917]' : 'border-[#e8e6e0]'} ${isSkip ? 'opacity-65' : ''}`}
-                >
-                  <p className={`mb-2 text-[10px] font-semibold uppercase tracking-[0.08em] ${isBuildFirst ? 'text-[#1a1917]' : 'text-[#a8a59f]'}`}>{label}</p>
-                  <h3 className="mb-1 text-[14px] font-semibold text-[#1a1917]">{item.title}</h3>
-                  <p className="text-[12px] leading-6 text-[#6b6860]">{item.body}</p>
-                </div>
-              )
-            })}
+        {/* Technical Complexity */}
+        <div className="mb-3">
+          <p className="mb-1 text-[10px] uppercase tracking-widest text-[#9e9b93]">Technical complexity</p>
+          <p className="text-[13px] text-[#5a574f]">An honest read of build difficulty, stack choice, and mistakes to avoid.</p>
+        </div>
+
+        <div className="mb-3 overflow-hidden rounded-xl border border-[#e4e0d8] bg-white">
+          <div className="border-b border-[#e4e0d8] px-5 py-4">
+            <div className="flex flex-wrap items-start gap-4">
+              <div>
+                <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">Complexity level</p>
+                {reportB?.complexityLevel && (
+                  <span className={`inline-flex items-center gap-2 rounded-[7px] ${complexityColor.border} ${complexityColor.bg} px-3 py-1.5 text-[14px] font-semibold ${complexityColor.text}`}>
+                    <span className={`h-2 w-2 rounded-full ${complexityColor.dot}`} />
+                    {reportB.complexityLevel}
+                  </span>
+                )}
+              </div>
+              <p className="flex-1 text-[13px] leading-7 text-[#5a574f]">{complexitySummary}</p>
+            </div>
+          </div>
+
+          <div className="bg-[#1c1b18] px-5 py-4">
+            <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-white/40">Suggested approach</p>
+            <p className="mb-3 text-[12px] leading-6 text-white/80" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+              Next.js for frontend + Supabase for database, auth, and storage. Google Maps API for location. Cal.com embedded for booking. Vercel for hosting.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {['Next.js', 'Supabase', 'Google Maps API', 'Vercel', 'Tailwind CSS', 'Stripe'].map((tool) => (
+                <span key={tool} className="rounded-[5px] border border-white/25 bg-white/10 px-2.5 py-1 text-[11px] text-white/85" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+                  {tool}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
+        {/* AI Tools */}
+        <div className="mb-3">
+          <p className="mb-1 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">AI tools to build faster</p>
+          <p className="mb-4 text-[13px] text-[#5a574f]">Ship your MVP in weeks, not months, with these AI-native tools.</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(reportB?.aiTools && reportB.aiTools.length > 0
+              ? reportB.aiTools
+              : [
+                  { tool: 'Lovable', useCase: 'Frontend-first, great for UI-heavy apps', url: 'https://lovable.dev' },
+                  { tool: 'Cursor', useCase: 'AI code editor for full-stack builds', url: 'https://cursor.sh' },
+                  { tool: 'v0 by Vercel', useCase: 'Generate UI components instantly', url: 'https://v0.dev' },
+                  { tool: 'Bolt', useCase: 'Instant full-stack prototypes', url: 'https://bolt.new' },
+                ]
+            ).map(({ tool, useCase, url }) => (
+              <a
+                key={tool}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 rounded-xl border border-[#e4e0d8] bg-white p-4 no-underline transition-all hover:border-[#c8c4bc] hover:shadow-[0_2px_12px_rgba(0,0,0,0.07)]"
+              >
+                <AIToolLogo tool={tool} url={url} size="lg" />
+                <div className="min-w-0 flex-1">
+                  <p className="mb-0.5 truncate text-[13px] font-semibold text-[#1a1917]">{tool}</p>
+                  <p className="text-[12px] leading-[1.5] text-[#6b6860]">{useCase}</p>
+                </div>
+                <svg
+                  className="h-3.5 w-3.5 shrink-0 text-[#d1cec7] transition-colors group-hover:text-[#1a1917]"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M2.5 11.5L11.5 2.5M11.5 2.5H6M11.5 2.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Common Mistakes */}
+        <div className={sectionClass}>
+          <p className="mb-2 text-[10px] uppercase tracking-[0.08em] text-[#9e9b93]">Common mistakes to avoid</p>
+          <div className="space-y-2">
+            {(reportB?.commonMistakes && reportB.commonMistakes.length > 0
+              ? reportB.commonMistakes
+              : [
+                  'Building too many features before validating one clear core workflow with real users.',
+                  'Delaying feedback loops until after launch instead of testing with users every week.',
+                  'Over-engineering infrastructure before proving retention and willingness to pay.',
+                ]
+            ).map((mistake) => (
+              <div key={mistake} className="flex items-start gap-3 rounded-lg border border-[#fde68a] bg-[#fffbeb] px-4 py-3">
+                <span className="mt-px text-[13px]">⚠</span>
+                <p className="text-[13px] leading-6 text-[#78350f]">{mistake}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-8 h-px bg-[#e4e0d8]" />
+
+        {/* North Star Metric */}
         <div className={sectionClass}>
           <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#a8a59f]">The one number that tells you it is working</p>
           <div className="rounded-xl border border-[#e8e6e0] bg-white p-5">
@@ -215,6 +305,7 @@ export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
           </div>
         </div>
 
+        {/* Unit Economics */}
         <div className={sectionClass}>
           <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#a8a59f]">Your path to 1k MRR</p>
           <div className="rounded-xl border border-[#e8e6e0] bg-white p-5">
@@ -226,52 +317,82 @@ export function PlanSection({ reportC, gateUnlocked }: PlanSectionProps) {
           </div>
         </div>
 
-        <div className={`${sectionClass} rounded-xl bg-[#1a1917] p-6 text-white`}>
-          <p className="text-[14px] leading-7 text-white/90">
-            <strong className="font-semibold">{riskCallout.title}</strong> {riskCallout.body}
-          </p>
-        </div>
+        <div className="mb-8 h-px bg-[#e4e0d8]" />
 
+        {/* 28-day Roadmap */}
         <div className={sectionClass}>
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#a8a59f]">30-day build plan</p>
-          <div className="space-y-2.5">
-            {roadmap.map((item) => {
-              const done = completedRoadmap.includes(item.id)
-
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => toggleRoadmapItem(item.id)}
-                  className={`flex w-full items-start gap-3 rounded-xl border border-[#e8e6e0] bg-white px-4 py-3 text-left transition ${done ? 'opacity-60' : ''}`}
-                >
-                  <span className="mt-0.5 w-6 shrink-0 text-[11px] font-semibold text-[#1a1917]">{item.label}</span>
-                  <span className={`mt-0.5 h-4 w-4 shrink-0 rounded-[4px] border-[1.5px] ${done ? 'border-[#1a1917] bg-[#1a1917]' : 'border-[#d1cec7] bg-white'}`}>
-                    {done ? <span className="block text-center text-[11px] leading-4 text-white">✓</span> : null}
+          <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-[#a8a59f]">Your 28-day roadmap</p>
+          <p className="mb-4 text-[13px] text-[#5a574f]">Four focused weeks from idea to a product real users can try.</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {roadmapWeeks.map((week) => (
+              <div key={week.week} className="rounded-xl border border-[#e8e6e0] bg-white p-5">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1917] text-[11px] font-semibold text-white">
+                    W{week.week}
                   </span>
-                  <span className={`text-[13px] leading-6 text-[#1a1917] ${done ? 'line-through text-[#a8a59f]' : ''}`}>{item.body}</span>
-                </button>
-              )
-            })}
+                  <h3 className="text-[14px] font-semibold text-[#1a1917]">{week.title}</h3>
+                </div>
+                <ul className="space-y-1.5">
+                  {week.deliverables.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-[12px] leading-[1.6] text-[#5a574f]">
+                      <span className="mt-[4px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#d1cec7]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          <a
-            href="https://creworklabs.com/contact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg bg-[#1a1917] px-5 py-3 text-center text-[14px] font-semibold text-white transition hover:bg-[#333]"
-          >
-            Get your full execution plan
-          </a>
+        {/* CTAs */}
+        <div className="space-y-3">
+          {downloadSuccess ? (
+            <div className="rounded-lg border border-[#b5d6bf] bg-[#eaf3ec] px-5 py-4 text-center">
+              <p className="text-[14px] font-medium text-[#1e5c38]">Report sent! Check your inbox.</p>
+              <p className="mt-1 text-[12px] text-[#2d6a4f]">We emailed your full report including the tech stack, metrics, and 28-day plan.</p>
+            </div>
+          ) : showDownloadForm && !capturedEmail ? (
+            <div className="rounded-xl border border-[#e8e6e0] bg-white p-5">
+              <p className="mb-3 text-[13px] font-medium text-[#1a1917]">Enter your email to receive the full report</p>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <input
+                  type="email"
+                  value={downloadEmail}
+                  onChange={(e) => setDownloadEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && onDownloadReport()}
+                  placeholder="you@example.com"
+                  className="w-full rounded-lg border border-[#d1cec7] bg-[#f8f6f1] px-4 py-3 text-[13px] outline-none focus:border-[#1a1917]"
+                />
+                <button
+                  type="button"
+                  disabled={downloadLoading}
+                  onClick={onDownloadReport}
+                  className="shrink-0 rounded-lg bg-[#1a1917] px-5 py-3 text-[14px] font-semibold text-white transition hover:bg-[#333] disabled:opacity-50"
+                >
+                  {downloadLoading ? 'Sending...' : 'Send report'}
+                </button>
+              </div>
+              {downloadError && <p className="mt-2 text-[12px] text-[#991b1b]">{downloadError}</p>}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={capturedEmail ? onDownloadReport : () => setShowDownloadForm(true)}
+              disabled={downloadLoading}
+              className="w-full rounded-lg bg-[#1a1917] px-5 py-3 text-center text-[14px] font-semibold text-white transition hover:bg-[#333] disabled:opacity-50"
+            >
+              {downloadLoading ? 'Sending...' : 'Download report →'}
+            </button>
+          )}
+
           <a
             href="https://cal.com/creworklabs"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-[#d1cec7] bg-transparent px-5 py-3 text-center text-[14px] text-[#1a1917] transition hover:bg-[#f0ede8]"
+            className="block w-full rounded-lg border border-[#d1cec7] bg-transparent px-5 py-3 text-center text-[14px] text-[#1a1917] transition hover:bg-[#f0ede8]"
           >
-            Book a call with Crework
+            Need help with building your idea? Book a call with Crework
           </a>
         </div>
       </div>
