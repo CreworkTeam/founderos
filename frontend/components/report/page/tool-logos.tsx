@@ -1,101 +1,74 @@
 import React from 'react'
 
-export type AIToolName = 'Lovable' | 'Cursor' | 'v0 by Vercel' | 'Bolt'
+type LogoSize = 'sm' | 'lg'
 
-function InitialsLogo({ label }: { label: string }) {
-  const initials = label.trim().slice(0, 2).toUpperCase() || 'AI'
+const sizeConfig: Record<LogoSize, { frame: string; img: string; text: string; radius: string }> = {
+  sm: { frame: 'h-6 w-6', img: 'h-4 w-4', text: 'text-[10px]', radius: 'rounded-md' },
+  lg: { frame: 'h-12 w-12', img: 'h-8 w-8', text: 'text-[14px]', radius: 'rounded-xl' },
+}
+
+function InitialsLogo({ label, size = 'sm' }: { label: string; size?: LogoSize }) {
+  const { frame, text, radius } = sizeConfig[size]
+  const words = label.trim().split(/\s+/)
+  const initials = words.length >= 2
+    ? (words[0][0] + words[1][0]).toUpperCase()
+    : label.trim().slice(0, 2).toUpperCase() || 'AI'
   return (
     <span
-      className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#e4e0d8] bg-white"
+      className={`inline-flex shrink-0 items-center justify-center ${frame} ${radius} border border-[#e4e0d8] bg-[#f8f6f1]`}
       aria-hidden="true"
     >
-      <span className="text-[10px] font-semibold text-[#6b6860]">{initials}</span>
+      <span className={`font-semibold text-[#6b6860] ${text}`}>{initials}</span>
     </span>
   )
 }
 
-function LogoFrame({ children }: { children: React.ReactNode }) {
+function FaviconLogo({ domain, alt, fallbackLabel, size = 'sm' }: { domain: string; alt: string; fallbackLabel: string; size?: LogoSize }) {
+  const { frame, img, radius } = sizeConfig[size]
+  const words = fallbackLabel.trim().split(/\s+/)
+  const initials = words.length >= 2
+    ? (words[0][0] + words[1][0]).toUpperCase()
+    : fallbackLabel.trim().slice(0, 2).toUpperCase() || 'AI'
+
   return (
     <span
-      className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-md border border-[#e4e0d8]"
-      style={{ background: '#ffffff' }}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden ${frame} ${radius} border border-[#e4e0d8] bg-white`}
       aria-hidden="true"
     >
-      {children}
-    </span>
-  )
-}
-
-function CompanyLogo({
-  primary,
-  fallback,
-  alt,
-}: {
-  primary: string
-  fallback: string
-  alt: string
-}) {
-  return (
-    <LogoFrame>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={primary}
+        src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
         alt={alt}
-        width={18}
-        height={18}
-        className="h-4.5 w-4.5 object-contain"
+        className={`${img} object-contain`}
         onError={(event) => {
           const img = event.currentTarget
           if (!img.dataset.fallbackApplied) {
             img.dataset.fallbackApplied = 'true'
-            img.src = fallback
+            const parent = img.parentElement
+            if (parent) {
+              img.remove()
+              const span = document.createElement('span')
+              span.style.fontSize = size === 'lg' ? '14px' : '10px'
+              span.style.fontWeight = '600'
+              span.style.color = '#6b6860'
+              span.textContent = initials
+              parent.appendChild(span)
+            }
           }
         }}
       />
-    </LogoFrame>
+    </span>
   )
 }
 
-export function AIToolLogo({ tool }: { tool: string }) {
-  if (tool === 'Lovable') {
-    return (
-      <CompanyLogo
-        alt="Lovable"
-        primary="https://logo.clearbit.com/lovable.dev"
-        fallback="https://www.google.com/s2/favicons?domain=lovable.dev&sz=64"
-      />
-    )
+export function AIToolLogo({ tool, url, size = 'sm' }: { tool: string; url?: string; size?: LogoSize }) {
+  if (url) {
+    try {
+      const domain = new URL(url).hostname.replace(/^www\./, '')
+      return <FaviconLogo domain={domain} alt={tool} fallbackLabel={tool} size={size} />
+    } catch {
+      // fall through to initials
+    }
   }
-
-  if (tool === 'Cursor') {
-    return (
-      <CompanyLogo
-        alt="Cursor"
-        primary="https://logo.clearbit.com/cursor.com"
-        fallback="https://www.google.com/s2/favicons?domain=cursor.com&sz=64"
-      />
-    )
-  }
-
-  if (tool === 'v0 by Vercel') {
-    return (
-      <CompanyLogo
-        alt="v0 by Vercel"
-        primary="https://logo.clearbit.com/vercel.com"
-        fallback="https://www.google.com/s2/favicons?domain=vercel.com&sz=64"
-      />
-    )
-  }
-
-  if (tool === 'Bolt') {
-    return (
-      <CompanyLogo
-        alt="Bolt"
-        primary="https://logo.clearbit.com/bolt.new"
-        fallback="https://www.google.com/s2/favicons?domain=bolt.new&sz=64"
-      />
-    )
-  }
-
-  return <InitialsLogo label={tool} />
+  return <InitialsLogo label={tool} size={size} />
 }
