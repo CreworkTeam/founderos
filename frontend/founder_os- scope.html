@@ -1,712 +1,2436 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Founder OS — Scope Wireframe</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #f8f6f1;
-  --surface: #fff;
-  --border: #e4e0d8;
-  --border-mid: #cbc7bc;
-  --ink: #1c1b18;
-  --ink-2: #5a574f;
-  --ink-3: #9e9b93;
-  --ink-4: #c8c5be;
-  --green: #1e5c38;
-  --green-bg: #eaf3ec;
-  --green-border: #b5d6bf;
-  --red: #7f1d1d;
-  --red-bg: #fef2f2;
-  --red-border: #fecaca;
-  --amber: #78350f;
-  --amber-bg: #fffbeb;
-  --amber-border: #fde68a;
-  --blue: #1e3a5f;
-  --blue-bg: #eff6ff;
-  --blue-border: #bfdbfe;
-  --tag: #f0ede6;
-  --mono: 'DM Mono', monospace;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: var(--bg); }
-body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--bg); font-size: 14px; line-height: 1.5; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Founder OS — Scope Wireframe</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8f6f1;
+        --surface: #fff;
+        --border: #e4e0d8;
+        --border-mid: #cbc7bc;
+        --ink: #1c1b18;
+        --ink-2: #5a574f;
+        --ink-3: #9e9b93;
+        --ink-4: #c8c5be;
+        --green: #1e5c38;
+        --green-bg: #eaf3ec;
+        --green-border: #b5d6bf;
+        --red: #7f1d1d;
+        --red-bg: #fef2f2;
+        --red-border: #fecaca;
+        --amber: #78350f;
+        --amber-bg: #fffbeb;
+        --amber-border: #fde68a;
+        --blue: #1e3a5f;
+        --blue-bg: #eff6ff;
+        --blue-border: #bfdbfe;
+        --tag: #f0ede6;
+        --mono: "DM Mono", monospace;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        background: var(--bg);
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        font-size: 14px;
+        line-height: 1.5;
+      }
 
-.shell { display: grid; grid-template-columns: 210px 1fr; grid-template-rows: auto 1fr; min-height: 100vh; }
+      .shell {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: 100vh;
+      }
 
-/* ─── SIDEBAR ─── */
-.sidebar {
-  background: var(--surface); border-right: 0.5px solid var(--border);
-  padding: 1.5rem 1rem 2rem; position: sticky; top: 46px; height: calc(100vh - 46px);
-  display: flex; flex-direction: column; overflow-y: auto; grid-row: 2;
-}
-.sb-logo { font-size: 13px; font-weight: 500; padding: 0 8px; margin-bottom: 1.5rem; }
-.sb-logo span { color: var(--ink-3); font-weight: 400; }
-.sb-group-label { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-4); padding: 0 8px; margin: 10px 0 4px; }
-.sb-item {
-  display: flex; align-items: center; gap: 9px; padding: 7px 8px;
-  border-radius: 7px; font-size: 13px; cursor: pointer; color: var(--ink-3);
-  border: none; background: none; width: 100%; text-align: left; font-family: inherit;
-  transition: all 0.12s;
-}
-.sb-item:hover { background: var(--bg); color: var(--ink); }
-.sb-item.done { color: var(--ink-2); }
-.sb-item.active { background: var(--bg); color: var(--ink); font-weight: 500; }
-.sb-item.locked { opacity: 0.38; pointer-events: none; }
-.sb-pip { width: 7px; height: 7px; border-radius: 50%; background: var(--border-mid); flex-shrink: 0; }
-.sb-pip.g { background: #34d399; }
-.sb-pip.on { background: var(--ink); }
-.sb-divider { height: 0.5px; background: var(--border); margin: 10px 0; }
-.sb-idea { margin-top: auto; padding: 10px; background: var(--bg); border-radius: 8px; }
-.sb-idea-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
-.sb-idea-txt { font-size: 12px; color: var(--ink); line-height: 1.4; margin-bottom: 6px; }
-.sb-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; color: var(--ink-2); background: var(--surface); border: 0.5px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+      /* ─── SIDEBAR ─── */
+      .sidebar {
+        background: var(--surface);
+        border-right: 0.5px solid var(--border);
+        padding: 1.5rem 1rem 2rem;
+        position: sticky;
+        top: 46px;
+        height: calc(100vh - 46px);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        grid-row: 2;
+      }
+      .sb-logo {
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 8px;
+        margin-bottom: 1.5rem;
+      }
+      .sb-logo span {
+        color: var(--ink-3);
+        font-weight: 400;
+      }
+      .sb-group-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        padding: 0 8px;
+        margin: 10px 0 4px;
+      }
+      .sb-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 8px;
+        border-radius: 7px;
+        font-size: 13px;
+        cursor: pointer;
+        color: var(--ink-3);
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-family: inherit;
+        transition: all 0.12s;
+      }
+      .sb-item:hover {
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .sb-item.done {
+        color: var(--ink-2);
+      }
+      .sb-item.active {
+        background: var(--bg);
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .sb-item.locked {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+      .sb-pip {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--border-mid);
+        flex-shrink: 0;
+      }
+      .sb-pip.g {
+        background: #34d399;
+      }
+      .sb-pip.on {
+        background: var(--ink);
+      }
+      .sb-divider {
+        height: 0.5px;
+        background: var(--border);
+        margin: 10px 0;
+      }
+      .sb-idea {
+        margin-top: auto;
+        padding: 10px;
+        background: var(--bg);
+        border-radius: 8px;
+      }
+      .sb-idea-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin-bottom: 4px;
+      }
+      .sb-idea-txt {
+        font-size: 12px;
+        color: var(--ink);
+        line-height: 1.4;
+        margin-bottom: 6px;
+      }
+      .sb-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--ink-2);
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
 
-/* ─── MAIN ─── */
-.main { padding: 2.5rem 3rem 6rem; max-width: 820px; grid-row: 2; }
+      /* ─── MAIN ─── */
+      .main {
+        padding: 2.5rem 3rem 6rem;
+        max-width: 820px;
+        grid-row: 2;
+      }
 
-/* PAGE HEADER */
-.page-hdr { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 0.5px solid var(--border); }
-.breadcrumb { font-size: 11px; color: var(--ink-3); display: flex; gap: 6px; align-items: center; margin-bottom: 12px; }
-.breadcrumb .cur { color: var(--ink); font-weight: 500; }
-.page-hdr h1 { font-family: 'Instrument Serif', serif; font-size: 30px; line-height: 1.25; margin-bottom: 8px; }
-.page-hdr h1 em { font-style: italic; color: var(--ink-2); }
-.page-hdr p { font-size: 14px; color: var(--ink-2); line-height: 1.65; max-width: 540px; }
-.hdr-tags { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-.hdr-tag { font-size: 11px; padding: 3px 10px; border-radius: 5px; background: var(--tag); color: var(--ink-2); font-weight: 500; }
-.hdr-tag.g { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
+      /* PAGE HEADER */
+      .page-hdr {
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .breadcrumb {
+        font-size: 11px;
+        color: var(--ink-3);
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .breadcrumb .cur {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .page-hdr h1 {
+        font-family: "Instrument Serif", serif;
+        font-size: 30px;
+        line-height: 1.25;
+        margin-bottom: 8px;
+      }
+      .page-hdr h1 em {
+        font-style: italic;
+        color: var(--ink-2);
+      }
+      .page-hdr p {
+        font-size: 14px;
+        color: var(--ink-2);
+        line-height: 1.65;
+        max-width: 540px;
+      }
+      .hdr-tags {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .hdr-tag {
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 5px;
+        background: var(--tag);
+        color: var(--ink-2);
+        font-weight: 500;
+      }
+      .hdr-tag.g {
+        background: var(--green-bg);
+        color: var(--green);
+        border: 0.5px solid var(--green-border);
+      }
 
-/* SECTION */
-.sec { margin-bottom: 2.5rem; }
-.sec-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
-.sec-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-.sec-sub { font-size: 13px; color: var(--ink-2); line-height: 1.65; margin-bottom: 16px; }
-.divider { height: 0.5px; background: var(--border); margin: 2.5rem 0; }
+      /* SECTION */
+      .sec {
+        margin-bottom: 2.5rem;
+      }
+      .sec-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin-bottom: 10px;
+      }
+      .sec-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .sec-sub {
+        font-size: 13px;
+        color: var(--ink-2);
+        line-height: 1.65;
+        margin-bottom: 16px;
+      }
+      .divider {
+        height: 0.5px;
+        background: var(--border);
+        margin: 2.5rem 0;
+      }
 
-/* ANN */
-.ann { font-size: 11px; color: #92400e; border-left: 2px solid #fbbf24; padding: 4px 10px; margin-top: 8px; font-style: italic; background: #fffbeb; border-radius: 0 4px 4px 0; }
+      /* ANN */
+      .ann {
+        font-size: 11px;
+        color: #92400e;
+        border-left: 2px solid #fbbf24;
+        padding: 4px 10px;
+        margin-top: 8px;
+        font-style: italic;
+        background: #fffbeb;
+        border-radius: 0 4px 4px 0;
+      }
 
-/* ══════════════════════════════════════
+      /* ══════════════════════════════════════
    SECTION 1 — CORE LOOP
 ══════════════════════════════════════ */
-.core-loop-card {
-  background: var(--ink); border-radius: 12px; padding: 22px 24px;
-}
-.core-loop-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
-.core-loop-sentence { font-family: 'Instrument Serif', serif; font-size: 22px; line-height: 1.35; color: white; margin-bottom: 20px; }
-.core-loop-steps { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
-.loop-step {
-  display: flex; flex-direction: column; align-items: center;
-  background: rgba(255,255,255,0.09); border: 0.5px solid rgba(255,255,255,0.15);
-  border-radius: 8px; padding: 10px 16px; min-width: 130px;
-}
-.loop-step-num { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.35); font-family: var(--mono); margin-bottom: 4px; }
-.loop-step-label { font-size: 12px; font-weight: 500; color: white; text-align: center; }
-.loop-arrow { font-size: 16px; color: rgba(255,255,255,0.25); padding: 0 8px; flex-shrink: 0; }
-.core-loop-note { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; font-style: italic; }
+      .core-loop-card {
+        background: var(--ink);
+        border-radius: 12px;
+        padding: 22px 24px;
+      }
+      .core-loop-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 10px;
+      }
+      .core-loop-sentence {
+        font-family: "Instrument Serif", serif;
+        font-size: 22px;
+        line-height: 1.35;
+        color: white;
+        margin-bottom: 20px;
+      }
+      .core-loop-steps {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+      .loop-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.09);
+        border: 0.5px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        padding: 10px 16px;
+        min-width: 130px;
+      }
+      .loop-step-num {
+        font-size: 10px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        font-family: var(--mono);
+        margin-bottom: 4px;
+      }
+      .loop-step-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        text-align: center;
+      }
+      .loop-arrow {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.25);
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+      .core-loop-note {
+        margin-top: 14px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
+        font-style: italic;
+      }
 
-/* ══════════════════════════════════════
+      /* ══════════════════════════════════════
    SECTION 2 — FEATURE PRIORITY MATRIX
 ══════════════════════════════════════ */
-.matrix-wrap {
-  background: var(--surface); border: 0.5px solid var(--border);
-  border-radius: 12px; overflow: hidden;
-}
-.matrix-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr;
-  position: relative;
-}
+      .matrix-wrap {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .matrix-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr 1fr;
+        position: relative;
+      }
 
-/* Axis labels */
-.matrix-y-label {
-  position: absolute; left: -38px; top: 50%; transform: translateY(-50%) rotate(-90deg);
-  font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--ink-3); white-space: nowrap;
-}
-.matrix-container { position: relative; padding: 24px 24px 24px 54px; }
-.axis-row { display: flex; justify-content: space-between; align-items: center; padding: 0 0 10px; }
-.axis-label-x { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+      /* Axis labels */
+      .matrix-y-label {
+        position: absolute;
+        left: -38px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+      .matrix-container {
+        position: relative;
+        padding: 24px 24px 24px 54px;
+      }
+      .axis-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0 10px;
+      }
+      .axis-label-x {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
 
-.matrix-inner { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
+      .matrix-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 8px;
+      }
 
-.quad {
-  border-radius: 9px; padding: 14px 15px; min-height: 130px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.quad-top-right { background: var(--green-bg); border: 0.5px solid var(--green-border); }
-.quad-top-left  { background: var(--amber-bg); border: 0.5px solid var(--amber-border); }
-.quad-bot-right { background: var(--blue-bg);  border: 0.5px solid var(--blue-border); }
-.quad-bot-left  { background: var(--red-bg);   border: 0.5px solid var(--red-border); }
+      .quad {
+        border-radius: 9px;
+        padding: 14px 15px;
+        min-height: 130px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .quad-top-right {
+        background: var(--green-bg);
+        border: 0.5px solid var(--green-border);
+      }
+      .quad-top-left {
+        background: var(--amber-bg);
+        border: 0.5px solid var(--amber-border);
+      }
+      .quad-bot-right {
+        background: var(--blue-bg);
+        border: 0.5px solid var(--blue-border);
+      }
+      .quad-bot-left {
+        background: var(--red-bg);
+        border: 0.5px solid var(--red-border);
+      }
 
-.quad-label { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 2px; }
-.quad-label.g { color: var(--green); }
-.quad-label.a { color: var(--amber); }
-.quad-label.b { color: var(--blue); }
-.quad-label.r { color: var(--red); }
+      .quad-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      .quad-label.g {
+        color: var(--green);
+      }
+      .quad-label.a {
+        color: var(--amber);
+      }
+      .quad-label.b {
+        color: var(--blue);
+      }
+      .quad-label.r {
+        color: var(--red);
+      }
 
-.feat-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; padding: 5px 10px; border-radius: 6px;
-  background: rgba(255,255,255,0.65); font-weight: 500; line-height: 1.2;
-  width: fit-content;
-}
-.feat-chip.g { color: var(--green); }
-.feat-chip.a { color: var(--amber); }
-.feat-chip.b { color: var(--blue); }
-.feat-chip.r { color: var(--red); text-decoration: line-through; opacity: 0.7; }
+      .feat-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.65);
+        font-weight: 500;
+        line-height: 1.2;
+        width: fit-content;
+      }
+      .feat-chip.g {
+        color: var(--green);
+      }
+      .feat-chip.a {
+        color: var(--amber);
+      }
+      .feat-chip.b {
+        color: var(--blue);
+      }
+      .feat-chip.r {
+        color: var(--red);
+        text-decoration: line-through;
+        opacity: 0.7;
+      }
 
-.quad-verdict { font-size: 11px; color: var(--ink-3); margin-top: auto; }
+      .quad-verdict {
+        font-size: 11px;
+        color: var(--ink-3);
+        margin-top: auto;
+      }
 
-.matrix-legend { display: flex; gap: 16px; padding: 12px 24px; border-top: 0.5px solid var(--border); flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--ink-2); }
-.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+      .matrix-legend {
+        display: flex;
+        gap: 16px;
+        padding: 12px 24px;
+        border-top: 0.5px solid var(--border);
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--ink-2);
+      }
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+      }
 
-/* ══════════════════════════════════════
+      /* ══════════════════════════════════════
    SECTION 3 — BUILD VS BUY
 ══════════════════════════════════════ */
-.bvb-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 0.5px solid var(--border); border-radius: 11px; overflow: hidden; }
-.bvb-table thead tr { border-bottom: 0.5px solid var(--border); background: var(--bg); }
-.bvb-table th { padding: 10px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-align: left; }
-.bvb-table td { padding: 14px 16px; border-bottom: 0.5px solid var(--border); font-size: 13px; vertical-align: top; }
-.bvb-table tr:last-child td { border-bottom: none; }
-.bvb-table tr:hover td { background: #fafaf8; }
-.feat-name { font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-.feat-desc { font-size: 12px; color: var(--ink-3); }
-.decision-pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 5px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.pill-build { background: var(--ink); color: white; }
-.pill-buy   { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
-.pill-nocode { background: var(--blue-bg); color: var(--blue); border: 0.5px solid var(--blue-border); }
-.tool-suggestion { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
-.tool-suggestion span { font-family: var(--mono); font-size: 11px; background: var(--tag); padding: 2px 6px; border-radius: 4px; margin-right: 4px; }
-.effort-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.effort-bar { height: 4px; background: var(--border); border-radius: 2px; flex: 1; overflow: hidden; }
-.effort-fill { height: 100%; border-radius: 2px; background: var(--ink); }
-.effort-label { font-size: 11px; color: var(--ink-3); font-family: var(--mono); white-space: nowrap; min-width: 40px; }
+      .bvb-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 11px;
+        overflow: hidden;
+      }
+      .bvb-table thead tr {
+        border-bottom: 0.5px solid var(--border);
+        background: var(--bg);
+      }
+      .bvb-table th {
+        padding: 10px 16px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        text-align: left;
+      }
+      .bvb-table td {
+        padding: 14px 16px;
+        border-bottom: 0.5px solid var(--border);
+        font-size: 13px;
+        vertical-align: top;
+      }
+      .bvb-table tr:last-child td {
+        border-bottom: none;
+      }
+      .bvb-table tr:hover td {
+        background: #fafaf8;
+      }
+      .feat-name {
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 2px;
+      }
+      .feat-desc {
+        font-size: 12px;
+        color: var(--ink-3);
+      }
+      .decision-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .pill-build {
+        background: var(--ink);
+        color: white;
+      }
+      .pill-buy {
+        background: var(--green-bg);
+        color: var(--green);
+        border: 0.5px solid var(--green-border);
+      }
+      .pill-nocode {
+        background: var(--blue-bg);
+        color: var(--blue);
+        border: 0.5px solid var(--blue-border);
+      }
+      .tool-suggestion {
+        font-size: 12px;
+        color: var(--ink-2);
+        margin-top: 4px;
+      }
+      .tool-suggestion span {
+        font-family: var(--mono);
+        font-size: 11px;
+        background: var(--tag);
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-right: 4px;
+      }
+      .effort-bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .effort-bar {
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        flex: 1;
+        overflow: hidden;
+      }
+      .effort-fill {
+        height: 100%;
+        border-radius: 2px;
+        background: var(--ink);
+      }
+      .effort-label {
+        font-size: 11px;
+        color: var(--ink-3);
+        font-family: var(--mono);
+        white-space: nowrap;
+        min-width: 40px;
+      }
 
-/* ══════════════════════════════════════
+      /* ══════════════════════════════════════
    SECTION 4 — EFFORT + COST
 ══════════════════════════════════════ */
-.cost-card {
-  background: var(--surface); border: 0.5px solid var(--border);
-  border-radius: 12px; overflow: hidden;
-}
-.cost-header { padding: 18px 22px; border-bottom: 0.5px solid var(--border); }
-.cost-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-.cost-range { font-family: 'Instrument Serif', serif; font-size: 36px; line-height: 1; color: var(--ink); }
-.cost-range-label { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
-.cost-timeline { text-align: right; }
-.cost-weeks { font-family: 'Instrument Serif', serif; font-size: 36px; color: var(--ink); }
-.cost-weeks-label { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
-.cost-note { font-size: 13px; color: var(--ink-2); line-height: 1.6; margin-top: 12px; }
+      .cost-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .cost-header {
+        padding: 18px 22px;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .cost-header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .cost-range {
+        font-family: "Instrument Serif", serif;
+        font-size: 36px;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .cost-range-label {
+        font-size: 12px;
+        color: var(--ink-3);
+        margin-top: 4px;
+      }
+      .cost-timeline {
+        text-align: right;
+      }
+      .cost-weeks {
+        font-family: "Instrument Serif", serif;
+        font-size: 36px;
+        color: var(--ink);
+      }
+      .cost-weeks-label {
+        font-size: 12px;
+        color: var(--ink-3);
+        margin-top: 4px;
+      }
+      .cost-note {
+        font-size: 13px;
+        color: var(--ink-2);
+        line-height: 1.6;
+        margin-top: 12px;
+      }
 
-.cost-breakdown { padding: 18px 22px; border-bottom: 0.5px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-.cost-row { display: flex; align-items: center; gap: 14px; }
-.cost-row-label { font-size: 13px; color: var(--ink); flex: 1; }
-.cost-row-sub { font-size: 11px; color: var(--ink-3); }
-.cost-row-amount { font-size: 13px; font-weight: 500; font-family: var(--mono); color: var(--ink); min-width: 90px; text-align: right; }
-.cost-bar-wrap { flex: 2; display: flex; align-items: center; gap: 8px; }
-.cost-bar { height: 4px; background: var(--border); border-radius: 2px; flex: 1; overflow: hidden; }
-.cost-bar-fill { height: 100%; border-radius: 2px; background: var(--ink); }
+      .cost-breakdown {
+        padding: 18px 22px;
+        border-bottom: 0.5px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .cost-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .cost-row-label {
+        font-size: 13px;
+        color: var(--ink);
+        flex: 1;
+      }
+      .cost-row-sub {
+        font-size: 11px;
+        color: var(--ink-3);
+      }
+      .cost-row-amount {
+        font-size: 13px;
+        font-weight: 500;
+        font-family: var(--mono);
+        color: var(--ink);
+        min-width: 90px;
+        text-align: right;
+      }
+      .cost-bar-wrap {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .cost-bar {
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        flex: 1;
+        overflow: hidden;
+      }
+      .cost-bar-fill {
+        height: 100%;
+        border-radius: 2px;
+        background: var(--ink);
+      }
 
-.cost-footer { padding: 14px 22px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-.cost-footer-note { font-size: 12px; color: var(--ink-3); }
-.cost-footer-note strong { color: var(--ink-2); font-weight: 500; }
+      .cost-footer {
+        padding: 14px 22px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .cost-footer-note {
+        font-size: 12px;
+        color: var(--ink-3);
+      }
+      .cost-footer-note strong {
+        color: var(--ink-2);
+        font-weight: 500;
+      }
 
-/* ══════════════════════════════════════
+      /* ══════════════════════════════════════
    BOTTOM CTA
 ══════════════════════════════════════ */
-.bottom-cta { margin-top: 3rem; }
-.bcta-inner {
-  background: var(--ink); border-radius: 12px; padding: 24px 26px;
-  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
-}
-.bcta-left {}
-.bcta-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 8px; }
-.bcta-title { font-size: 18px; font-weight: 500; color: white; line-height: 1.35; margin-bottom: 5px; }
-.bcta-sub { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
-.bcta-right { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-.bcta-btn-p { padding: 12px 22px; background: white; color: var(--ink); border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.12s; }
-.bcta-btn-p:hover { background: #f0ede6; }
-.bcta-btn-g { padding: 12px 22px; background: transparent; color: rgba(255,255,255,0.55); border: 0.5px solid rgba(255,255,255,0.18); border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.12s; }
-.bcta-btn-g:hover { background: rgba(255,255,255,0.07); color: white; }
+      .bottom-cta {
+        margin-top: 3rem;
+      }
+      .bcta-inner {
+        background: var(--ink);
+        border-radius: 12px;
+        padding: 24px 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .bcta-left {
+      }
+      .bcta-eyebrow {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        margin-bottom: 8px;
+      }
+      .bcta-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: white;
+        line-height: 1.35;
+        margin-bottom: 5px;
+      }
+      .bcta-sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.5;
+      }
+      .bcta-right {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .bcta-btn-p {
+        padding: 12px 22px;
+        background: white;
+        color: var(--ink);
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        white-space: nowrap;
+        transition: background 0.12s;
+      }
+      .bcta-btn-p:hover {
+        background: #f0ede6;
+      }
+      .bcta-btn-g {
+        padding: 12px 22px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.55);
+        border: 0.5px solid rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.12s;
+      }
+      .bcta-btn-g:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: white;
+      }
 
-.next-link {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 15px 20px; margin-top: 12px;
-  background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px;
-  cursor: pointer; text-decoration: none; transition: border-color 0.12s;
-}
-.next-link:hover { border-color: var(--border-mid); }
-.next-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 3px; }
-.next-title { font-size: 14px; font-weight: 500; color: var(--ink); }
-.next-arr { font-size: 18px; color: var(--ink-3); }
+      .next-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+        margin-top: 12px;
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: border-color 0.12s;
+      }
+      .next-link:hover {
+        border-color: var(--border-mid);
+      }
+      .next-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-3);
+        margin-bottom: 3px;
+      }
+      .next-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .next-arr {
+        font-size: 18px;
+        color: var(--ink-3);
+      }
 
-@media (max-width: 760px) {
-  .shell { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
-  .main { padding: 1.5rem 1.25rem 4rem; }
-}
+      @media (max-width: 760px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .main {
+          padding: 1.5rem 1.25rem 4rem;
+        }
+      }
 
-/* ─── TOP NAV ─── */
-.topnav {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--surface);
-  border-bottom: 0.5px solid var(--border);
-  display: flex; align-items: center;
-  padding: 0 2rem;
-  height: 46px;
-  grid-column: 1 / -1;
-}
-.topnav-logo { font-size: 13px; font-weight: 500; margin-right: 6px; text-decoration: none; color: var(--ink); }
-.topnav-logo span { color: var(--ink-3); font-weight: 400; }
-.topnav-steps { display: flex; align-items: center; gap: 0; }
-.topnav-sep { font-size: 13px; color: var(--ink-4); padding: 0 6px; }
-.topnav-step {
-  font-size: 12px; color: var(--ink-3); text-decoration: none;
-  padding: 4px 10px; border-radius: 5px; transition: all 0.12s;
-  white-space: nowrap;
-}
-.topnav-step:hover { background: var(--bg); color: var(--ink); }
-.topnav-step.done { color: var(--ink-2); }
-.topnav-step.done::after { content: ' ✓'; font-size: 10px; color: var(--green); }
-.topnav-step.active {
-  color: var(--ink); font-weight: 500;
-  background: var(--bg);
-}
-.topnav-step.locked { color: var(--ink-4); cursor: default; pointer-events: none; }
-.topnav-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
-.topnav-book { font-size: 12px; font-weight: 500; padding: 6px 14px; background: var(--ink); color: white; border-radius: 7px; text-decoration: none; transition: background 0.12s; white-space: nowrap; }
-.topnav-book:hover { background: #333; }
-</style>
-</head>
-<body>
-<div class="shell">
+      /* ─── TOP NAV ─── */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--surface);
+        border-bottom: 0.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        height: 46px;
+        grid-column: 1 / -1;
+      }
+      .topnav-logo {
+        font-size: 13px;
+        font-weight: 500;
+        margin-right: 6px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .topnav-logo span {
+        color: var(--ink-3);
+        font-weight: 400;
+      }
+      .topnav-steps {
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+      .topnav-sep {
+        font-size: 13px;
+        color: var(--ink-4);
+        padding: 0 6px;
+      }
+      .topnav-step {
+        font-size: 12px;
+        color: var(--ink-3);
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 5px;
+        transition: all 0.12s;
+        white-space: nowrap;
+      }
+      .topnav-step:hover {
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .topnav-step.done {
+        color: var(--ink-2);
+      }
+      .topnav-step.done::after {
+        content: " ✓";
+        font-size: 10px;
+        color: var(--green);
+      }
+      .topnav-step.active {
+        color: var(--ink);
+        font-weight: 500;
+        background: var(--bg);
+      }
+      .topnav-step.locked {
+        color: var(--ink-4);
+        cursor: default;
+        pointer-events: none;
+      }
+      .topnav-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .topnav-book {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 14px;
+        background: var(--ink);
+        color: white;
+        border-radius: 7px;
+        text-decoration: none;
+        transition: background 0.12s;
+        white-space: nowrap;
+      }
+      .topnav-book:hover {
+        background: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <!-- ─── TOP NAV ─── -->
+      <nav class="topnav">
+        <a href="#" class="topnav-logo">Founder OS <span>by Crework</span></a>
+        <div class="topnav-steps">
+          <span class="topnav-sep">→</span>
+          <a href="#" class="topnav-step done">Is there demand?</a>
+          <span class="topnav-sep">→</span>
+          <a href="#" class="topnav-step active">What to build</a>
+          <span class="topnav-sep">→</span>
+          <a href="#" class="topnav-step locked">How to start</a>
+        </div>
+        <div class="topnav-right">
+          <a href="#" class="topnav-book">Book a call →</a>
+        </div>
+      </nav>
 
-  <!-- ─── TOP NAV ─── -->
-  <nav class="topnav">
-    <a href="#" class="topnav-logo">Founder OS <span>by Crework</span></a>
-    <div class="topnav-steps">
-      <span class="topnav-sep">→</span>
-      <a href="#" class="topnav-step done">Is there demand?</a>
-      <span class="topnav-sep">→</span>
-      <a href="#" class="topnav-step active">What to build</a>
-      <span class="topnav-sep">→</span>
-      <a href="#" class="topnav-step locked">How to start</a>
-    </div>
-    <div class="topnav-right">
-      <a href="#" class="topnav-book">Book a call →</a>
-    </div>
-  </nav>
+      <!-- ─── SIDEBAR ─── -->
+      <aside class="sidebar">
+        <div class="sb-group-label">Your report</div>
+        <button class="sb-item done">
+          <div class="sb-pip g"></div>
+          Is there demand?
+        </button>
+        <button class="sb-item active">
+          <div class="sb-pip on"></div>
+          What to build
+        </button>
+        <button class="sb-item locked">
+          <div class="sb-pip"></div>
+          How to start
+        </button>
 
-  <!-- ─── SIDEBAR ─── -->
-  <aside class="sidebar">
+        <div class="sb-divider"></div>
 
-    <div class="sb-group-label">Your report</div>
-    <button class="sb-item done"><div class="sb-pip g"></div>Is there demand?</button>
-    <button class="sb-item active"><div class="sb-pip on"></div>What to build</button>
-    <button class="sb-item locked"><div class="sb-pip"></div>How to start</button>
+        <div class="sb-group-label">On this page</div>
+        <button class="sb-item">
+          <div class="sb-pip"></div>
+          Your core loop
+        </button>
+        <button class="sb-item">
+          <div class="sb-pip"></div>
+          Feature matrix
+        </button>
+        <button class="sb-item">
+          <div class="sb-pip"></div>
+          Tech stack
+        </button>
+        <button class="sb-item">
+          <div class="sb-pip"></div>
+          How to get first users
+        </button>
 
-    <div class="sb-divider"></div>
+        <div class="sb-divider"></div>
 
-    <div class="sb-group-label">On this page</div>
-    <button class="sb-item"><div class="sb-pip"></div>Your core loop</button>
-    <button class="sb-item"><div class="sb-pip"></div>Feature matrix</button>
-    <button class="sb-item"><div class="sb-pip"></div>Tech stack</button>
-    <button class="sb-item"><div class="sb-pip"></div>How to get first users</button>
+        <div class="sb-idea">
+          <div class="sb-idea-lbl">Your idea</div>
+          <div class="sb-idea-txt">
+            Marketplace to discover nail artists nearby
+          </div>
+          <div class="sb-badge"><span>●</span> Marketplace</div>
+        </div>
+      </aside>
 
-    <div class="sb-divider"></div>
+      <!-- ─── MAIN ─── -->
+      <main class="main">
+        <!-- PAGE HEADER -->
+        <div class="page-hdr">
+          <div class="breadcrumb">
+            Founder OS <span>→</span> Is there demand? <span>→</span>
+            <span class="cur">What to build</span>
+          </div>
+          <h1>Here's your v1.<br /><em>Everything else is v2.</em></h1>
+          <p>
+            We've broken your idea down into its smallest shippable form — the
+            exact features to build, what to buy off the shelf, what to skip,
+            and a realistic cost and timeline estimate.
+          </p>
+          <div class="hdr-tags">
+            <div class="hdr-tag">Marketplace</div>
+            <div class="hdr-tag">Consumer · B2C</div>
+            <div class="hdr-tag g">Low–Medium complexity</div>
+            <div class="hdr-tag">6–8 weeks to build</div>
+          </div>
+        </div>
+        <div class="ann">
+          COPY: "Here's your v1. Everything else is v2." — immediately frames
+          the mindset. Subtitle sets up all 4 sections below. Timeline +
+          complexity in the header header de-risks the technical side before
+          they even start reading.
+        </div>
 
-    <div class="sb-idea">
-      <div class="sb-idea-lbl">Your idea</div>
-      <div class="sb-idea-txt">Marketplace to discover nail artists nearby</div>
-      <div class="sb-badge"><span>●</span> Marketplace</div>
-    </div>
-  </aside>
-
-
-  <!-- ─── MAIN ─── -->
-  <main class="main">
-
-    <!-- PAGE HEADER -->
-    <div class="page-hdr">
-      <div class="breadcrumb">
-        Founder OS <span>→</span> Is there demand? <span>→</span> <span class="cur">What to build</span>
-      </div>
-      <h1>Here's your v1.<br><em>Everything else is v2.</em></h1>
-      <p>We've broken your idea down into its smallest shippable form — the exact features to build, what to buy off the shelf, what to skip, and a realistic cost and timeline estimate.</p>
-      <div class="hdr-tags">
-        <div class="hdr-tag">Marketplace</div>
-        <div class="hdr-tag">Consumer · B2C</div>
-        <div class="hdr-tag g">Low–Medium complexity</div>
-        <div class="hdr-tag">6–8 weeks to build</div>
-      </div>
-    </div>
-    <div class="ann">COPY: "Here's your v1. Everything else is v2." — immediately frames the mindset. Subtitle sets up all 4 sections below. Timeline + complexity in the header header de-risks the technical side before they even start reading.</div>
-
-
-    <!-- ══════════════════════════════
+        <!-- ══════════════════════════════
          1 — CORE LOOP
     ══════════════════════════════ -->
-    <div class="sec">
-      <div class="sec-lbl">Your core loop</div>
-      <div class="sec-sub">This is the single thing a user does in your product that delivers value. Everything in v1 exists to make this loop work. Everything outside it is a distraction.</div>
+        <div class="sec">
+          <div class="sec-lbl">Your core loop</div>
+          <div class="sec-sub">
+            This is the single thing a user does in your product that delivers
+            value. Everything in v1 exists to make this loop work. Everything
+            outside it is a distraction.
+          </div>
 
-      <div class="core-loop-card">
-        <div class="core-loop-label">The one thing your product does</div>
-        <div class="core-loop-sentence">"User searches by location → views nail artist portfolio → sends a booking request."</div>
-        <div class="core-loop-steps">
-          <div class="loop-step">
-            <div class="loop-step-num">01</div>
-            <div class="loop-step-label">Search by location</div>
-          </div>
-          <div class="loop-arrow">→</div>
-          <div class="loop-step">
-            <div class="loop-step-num">02</div>
-            <div class="loop-step-label">View portfolio</div>
-          </div>
-          <div class="loop-arrow">→</div>
-          <div class="loop-step">
-            <div class="loop-step-num">03</div>
-            <div class="loop-step-label">Send booking request</div>
+          <div class="core-loop-card">
+            <div class="core-loop-label">The one thing your product does</div>
+            <div class="core-loop-sentence">
+              "User searches by location → views nail artist portfolio → sends a
+              booking request."
+            </div>
+            <div class="core-loop-steps">
+              <div class="loop-step">
+                <div class="loop-step-num">01</div>
+                <div class="loop-step-label">Search by location</div>
+              </div>
+              <div class="loop-arrow">→</div>
+              <div class="loop-step">
+                <div class="loop-step-num">02</div>
+                <div class="loop-step-label">View portfolio</div>
+              </div>
+              <div class="loop-arrow">→</div>
+              <div class="loop-step">
+                <div class="loop-step-num">03</div>
+                <div class="loop-step-label">Send booking request</div>
+              </div>
+            </div>
+            <div class="core-loop-note">
+              If a feature doesn't directly support one of these three steps, it
+              does not belong in v1. Use this as a filter for every decision.
+            </div>
           </div>
         </div>
-        <div class="core-loop-note">If a feature doesn't directly support one of these three steps, it does not belong in v1. Use this as a filter for every decision.</div>
-      </div>
-    </div>
-    <div class="ann">DESIGN: Dark card makes this feel like a printable artefact — something they'd screenshot and send to a developer or co-founder. The three-step visual is the most shareable thing on the page. The italic note at the bottom is the rule they need to internalize.</div>
+        <div class="ann">
+          DESIGN: Dark card makes this feel like a printable artefact —
+          something they'd screenshot and send to a developer or co-founder. The
+          three-step visual is the most shareable thing on the page. The italic
+          note at the bottom is the rule they need to internalize.
+        </div>
 
+        <div class="divider"></div>
 
-    <div class="divider"></div>
-
-
-    <!-- ══════════════════════════════
+        <!-- ══════════════════════════════
          2 — FEATURE MATRIX + MARKET FRAMEWORK
     ══════════════════════════════ -->
-    <div class="sec">
-      <div class="sec-lbl">Feature priority matrix</div>
-      <div class="sec-sub">Every feature of your idea plotted by how much users need it vs how hard it is to build — and where your idea sits in the market.</div>
+        <div class="sec">
+          <div class="sec-lbl">Feature priority matrix</div>
+          <div class="sec-sub">
+            Every feature of your idea plotted by how much users need it vs how
+            hard it is to build — and where your idea sits in the market.
+          </div>
 
-      <!-- TWO-COL GRID: matrix left, framework right -->
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:start;">
-
-        <!-- LEFT: FEATURE MATRIX -->
-        <div class="matrix-wrap">
-          <div class="matrix-container">
-            <div style="position:relative;">
-              <div style="position:absolute; left:-42px; top:50%; transform:translateY(-50%) rotate(-90deg); font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap;">User need →</div>
-              <div style="display:flex; justify-content:space-between; margin-bottom:8px; padding:0 2px;">
-                <div style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-3);">← Easy</div>
-                <div style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-3);">Hard →</div>
+          <!-- TWO-COL GRID: matrix left, framework right -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 12px;
+              align-items: start;
+            "
+          >
+            <!-- LEFT: FEATURE MATRIX -->
+            <div class="matrix-wrap">
+              <div class="matrix-container">
+                <div style="position: relative">
+                  <div
+                    style="
+                      position: absolute;
+                      left: -42px;
+                      top: 50%;
+                      transform: translateY(-50%) rotate(-90deg);
+                      font-size: 10px;
+                      font-weight: 600;
+                      letter-spacing: 0.08em;
+                      text-transform: uppercase;
+                      color: var(--ink-3);
+                      white-space: nowrap;
+                    "
+                  >
+                    User need →
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 8px;
+                      padding: 0 2px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 10px;
+                        font-weight: 600;
+                        letter-spacing: 0.07em;
+                        text-transform: uppercase;
+                        color: var(--ink-3);
+                      "
+                    >
+                      ← Easy
+                    </div>
+                    <div
+                      style="
+                        font-size: 10px;
+                        font-weight: 600;
+                        letter-spacing: 0.07em;
+                        text-transform: uppercase;
+                        color: var(--ink-3);
+                      "
+                    >
+                      Hard →
+                    </div>
+                  </div>
+                  <div class="matrix-inner">
+                    <div
+                      class="quad quad-top-left"
+                      style="
+                        background: var(--green-bg);
+                        border-color: var(--green-border);
+                      "
+                    >
+                      <div class="quad-label g">✓ Build now</div>
+                      <div class="feat-chip g">Location search</div>
+                      <div class="feat-chip g">Artist profile</div>
+                      <div class="feat-chip g">Portfolio gallery</div>
+                      <div class="feat-chip g">Booking form</div>
+                      <div
+                        class="quad-verdict"
+                        style="
+                          color: var(--green);
+                          font-size: 11px;
+                          margin-top: 6px;
+                        "
+                      >
+                        Your entire v1
+                      </div>
+                    </div>
+                    <div
+                      class="quad quad-top-right"
+                      style="
+                        background: var(--amber-bg);
+                        border-color: var(--amber-border);
+                      "
+                    >
+                      <div class="quad-label a">→ Simplify</div>
+                      <div class="feat-chip a">In-app payments</div>
+                      <div class="feat-chip a">Availability cal.</div>
+                      <div class="feat-chip a">Verified reviews</div>
+                      <div
+                        class="quad-verdict"
+                        style="
+                          color: var(--amber);
+                          font-size: 11px;
+                          margin-top: 6px;
+                        "
+                      >
+                        Use existing tools
+                      </div>
+                    </div>
+                    <div
+                      class="quad quad-bot-left"
+                      style="
+                        background: var(--blue-bg);
+                        border-color: var(--blue-border);
+                      "
+                    >
+                      <div class="quad-label b">↓ Defer</div>
+                      <div class="feat-chip b">Onboarding flow</div>
+                      <div class="feat-chip b">Saved favourites</div>
+                      <div class="feat-chip b">Push notifs</div>
+                      <div
+                        class="quad-verdict"
+                        style="
+                          color: var(--blue);
+                          font-size: 11px;
+                          margin-top: 6px;
+                        "
+                      >
+                        Wait for v2
+                      </div>
+                    </div>
+                    <div
+                      class="quad quad-bot-right"
+                      style="
+                        background: var(--red-bg);
+                        border-color: var(--red-border);
+                      "
+                    >
+                      <div class="quad-label r">✕ Skip</div>
+                      <div class="feat-chip r">AI matching</div>
+                      <div class="feat-chip r">Subscription tiers</div>
+                      <div class="feat-chip r">Social feed</div>
+                      <div
+                        class="quad-verdict"
+                        style="
+                          color: var(--red);
+                          font-size: 11px;
+                          margin-top: 6px;
+                        "
+                      >
+                        Scope creep trap
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-top: 8px;
+                      padding: 0 2px;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 10px;
+                        font-weight: 600;
+                        letter-spacing: 0.07em;
+                        text-transform: uppercase;
+                        color: var(--ink-3);
+                      "
+                    >
+                      ← Low need
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
               </div>
-              <div class="matrix-inner">
-                <div class="quad quad-top-left" style="background:var(--green-bg); border-color:var(--green-border);">
-                  <div class="quad-label g">✓ Build now</div>
-                  <div class="feat-chip g">Location search</div>
-                  <div class="feat-chip g">Artist profile</div>
-                  <div class="feat-chip g">Portfolio gallery</div>
-                  <div class="feat-chip g">Booking form</div>
-                  <div class="quad-verdict" style="color:var(--green); font-size:11px; margin-top:6px;">Your entire v1</div>
+              <div class="matrix-legend">
+                <div class="legend-item">
+                  <div
+                    class="legend-dot"
+                    style="background: var(--green)"
+                  ></div>
+                  v1
                 </div>
-                <div class="quad quad-top-right" style="background:var(--amber-bg); border-color:var(--amber-border);">
-                  <div class="quad-label a">→ Simplify</div>
-                  <div class="feat-chip a">In-app payments</div>
-                  <div class="feat-chip a">Availability cal.</div>
-                  <div class="feat-chip a">Verified reviews</div>
-                  <div class="quad-verdict" style="color:var(--amber); font-size:11px; margin-top:6px;">Use existing tools</div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #d97706"></div>
+                  Simplify
                 </div>
-                <div class="quad quad-bot-left" style="background:var(--blue-bg); border-color:var(--blue-border);">
-                  <div class="quad-label b">↓ Defer</div>
-                  <div class="feat-chip b">Onboarding flow</div>
-                  <div class="feat-chip b">Saved favourites</div>
-                  <div class="feat-chip b">Push notifs</div>
-                  <div class="quad-verdict" style="color:var(--blue); font-size:11px; margin-top:6px;">Wait for v2</div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: var(--blue)"></div>
+                  v2
                 </div>
-                <div class="quad quad-bot-right" style="background:var(--red-bg); border-color:var(--red-border);">
-                  <div class="quad-label r">✕ Skip</div>
-                  <div class="feat-chip r">AI matching</div>
-                  <div class="feat-chip r">Subscription tiers</div>
-                  <div class="feat-chip r">Social feed</div>
-                  <div class="quad-verdict" style="color:var(--red); font-size:11px; margin-top:6px;">Scope creep trap</div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: var(--red)"></div>
+                  Skip
                 </div>
-              </div>
-              <div style="display:flex; justify-content:space-between; margin-top:8px; padding:0 2px;">
-                <div style="font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-3);">← Low need</div>
-                <div></div>
               </div>
             </div>
-          </div>
-          <div class="matrix-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>v1</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>Simplify</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>v2</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Skip</div>
+
+            <!-- RIGHT: MARKET POSITION FRAMEWORK -->
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <!-- Market Matrix 2x2 -->
+              <div
+                style="
+                  background: var(--surface);
+                  border: 0.5px solid var(--border);
+                  border-radius: 11px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    padding: 14px 16px;
+                    border-bottom: 0.5px solid var(--border);
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 13px;
+                      font-weight: 500;
+                      color: var(--ink);
+                      margin-bottom: 2px;
+                    "
+                  >
+                    Where your idea sits in the market
+                  </div>
+                  <div style="font-size: 12px; color: var(--ink-3)">
+                    Based on market uniqueness × value delivered to users
+                  </div>
+                </div>
+                <div
+                  style="display: grid; grid-template-columns: 1fr 1fr; gap: 0"
+                >
+                  <div
+                    style="
+                      padding: 14px 15px;
+                      border-right: 0.5px solid var(--border);
+                      border-bottom: 0.5px solid var(--border);
+                      opacity: 0.45;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--ink);
+                        margin-bottom: 3px;
+                      "
+                    >
+                      Tech Novelty
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        line-height: 1.4;
+                      "
+                    >
+                      High uniqueness · Low value delivered
+                    </div>
+                  </div>
+                  <!-- HIGHLIGHTED: Category King — where this idea lands -->
+                  <div
+                    style="
+                      padding: 14px 15px;
+                      border-bottom: 0.5px solid var(--border);
+                      background: var(--green-bg);
+                      border: 1.5px solid var(--green-border);
+                      position: relative;
+                    "
+                  >
+                    <div
+                      style="
+                        position: absolute;
+                        top: 8px;
+                        right: 8px;
+                        font-size: 9px;
+                        font-weight: 700;
+                        background: var(--green);
+                        color: white;
+                        padding: 2px 7px;
+                        border-radius: 4px;
+                        letter-spacing: 0.04em;
+                      "
+                    >
+                      YOUR IDEA
+                    </div>
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--green);
+                        margin-bottom: 3px;
+                      "
+                    >
+                      Category King
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--green);
+                        opacity: 0.75;
+                        line-height: 1.4;
+                      "
+                    >
+                      High uniqueness · High value delivered
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      padding: 14px 15px;
+                      border-right: 0.5px solid var(--border);
+                      opacity: 0.45;
+                    "
+                  >
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--ink);
+                        margin-bottom: 3px;
+                      "
+                    >
+                      Low Impact
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        line-height: 1.4;
+                      "
+                    >
+                      Low uniqueness · Low value delivered
+                    </div>
+                  </div>
+                  <div style="padding: 14px 15px; opacity: 0.45">
+                    <div
+                      style="
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--ink);
+                        margin-bottom: 3px;
+                      "
+                    >
+                      Commodity Play
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        line-height: 1.4;
+                      "
+                    >
+                      Low uniqueness · High value delivered
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACP Score card -->
+              <div
+                style="
+                  background: var(--surface);
+                  border: 0.5px solid var(--border);
+                  border-radius: 11px;
+                  padding: 16px 18px;
+                "
+              >
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  A.C.P. Framework score
+                </div>
+                <div
+                  style="
+                    font-size: 12px;
+                    color: var(--ink-3);
+                    margin-bottom: 14px;
+                  "
+                >
+                  Audience · Community · Product — how ready each pillar is
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px">
+                  <div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      <span style="font-size: 13px; color: var(--ink)"
+                        >Audience</span
+                      >
+                      <span
+                        style="
+                          font-size: 13px;
+                          font-weight: 500;
+                          color: var(--green);
+                          font-family: var(--mono);
+                        "
+                        >8/10</span
+                      >
+                    </div>
+                    <div
+                      style="
+                        height: 5px;
+                        background: var(--border);
+                        border-radius: 3px;
+                        overflow: hidden;
+                      "
+                    >
+                      <div
+                        style="
+                          height: 100%;
+                          width: 80%;
+                          background: var(--green);
+                          border-radius: 3px;
+                        "
+                      ></div>
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        margin-top: 4px;
+                      "
+                    >
+                      Clear target user · identifiable and reachable
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      <span style="font-size: 13px; color: var(--ink)"
+                        >Community</span
+                      >
+                      <span
+                        style="
+                          font-size: 13px;
+                          font-weight: 500;
+                          color: var(--amber);
+                          font-family: var(--mono);
+                        "
+                        >6/10</span
+                      >
+                    </div>
+                    <div
+                      style="
+                        height: 5px;
+                        background: var(--border);
+                        border-radius: 3px;
+                        overflow: hidden;
+                      "
+                    >
+                      <div
+                        style="
+                          height: 100%;
+                          width: 60%;
+                          background: #d97706;
+                          border-radius: 3px;
+                        "
+                      ></div>
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        margin-top: 4px;
+                      "
+                    >
+                      Growing discussion · no dominant community hub yet
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      <span style="font-size: 13px; color: var(--ink)"
+                        >Product</span
+                      >
+                      <span
+                        style="
+                          font-size: 13px;
+                          font-weight: 500;
+                          color: var(--green);
+                          font-family: var(--mono);
+                        "
+                        >8/10</span
+                      >
+                    </div>
+                    <div
+                      style="
+                        height: 5px;
+                        background: var(--border);
+                        border-radius: 3px;
+                        overflow: hidden;
+                      "
+                    >
+                      <div
+                        style="
+                          height: 100%;
+                          width: 80%;
+                          background: var(--green);
+                          border-radius: 3px;
+                        "
+                      ></div>
+                    </div>
+                    <div
+                      style="
+                        font-size: 11px;
+                        color: var(--ink-3);
+                        margin-top: 4px;
+                      "
+                    >
+                      Clear core loop · technically buildable · low complexity
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- RIGHT: MARKET POSITION FRAMEWORK -->
-        <div style="display:flex; flex-direction:column; gap:12px;">
-
-          <!-- Market Matrix 2x2 -->
-          <div style="background:var(--surface); border:0.5px solid var(--border); border-radius:11px; overflow:hidden;">
-            <div style="padding:14px 16px; border-bottom:0.5px solid var(--border);">
-              <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">Where your idea sits in the market</div>
-              <div style="font-size:12px; color:var(--ink-3);">Based on market uniqueness × value delivered to users</div>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
-              <div style="padding:14px 15px; border-right:0.5px solid var(--border); border-bottom:0.5px solid var(--border); opacity:0.45;">
-                <div style="font-size:12px; font-weight:600; color:var(--ink); margin-bottom:3px;">Tech Novelty</div>
-                <div style="font-size:11px; color:var(--ink-3); line-height:1.4;">High uniqueness · Low value delivered</div>
-              </div>
-              <!-- HIGHLIGHTED: Category King — where this idea lands -->
-              <div style="padding:14px 15px; border-bottom:0.5px solid var(--border); background:var(--green-bg); border:1.5px solid var(--green-border); position:relative;">
-                <div style="position:absolute; top:8px; right:8px; font-size:9px; font-weight:700; background:var(--green); color:white; padding:2px 7px; border-radius:4px; letter-spacing:0.04em;">YOUR IDEA</div>
-                <div style="font-size:12px; font-weight:600; color:var(--green); margin-bottom:3px;">Category King</div>
-                <div style="font-size:11px; color:var(--green); opacity:0.75; line-height:1.4;">High uniqueness · High value delivered</div>
-              </div>
-              <div style="padding:14px 15px; border-right:0.5px solid var(--border); opacity:0.45;">
-                <div style="font-size:12px; font-weight:600; color:var(--ink); margin-bottom:3px;">Low Impact</div>
-                <div style="font-size:11px; color:var(--ink-3); line-height:1.4;">Low uniqueness · Low value delivered</div>
-              </div>
-              <div style="padding:14px 15px; opacity:0.45;">
-                <div style="font-size:12px; font-weight:600; color:var(--ink); margin-bottom:3px;">Commodity Play</div>
-                <div style="font-size:11px; color:var(--ink-3); line-height:1.4;">Low uniqueness · High value delivered</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ACP Score card -->
-          <div style="background:var(--surface); border:0.5px solid var(--border); border-radius:11px; padding:16px 18px;">
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">A.C.P. Framework score</div>
-            <div style="font-size:12px; color:var(--ink-3); margin-bottom:14px;">Audience · Community · Product — how ready each pillar is</div>
-
-            <div style="display:flex; flex-direction:column; gap:10px;">
-              <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                  <span style="font-size:13px; color:var(--ink);">Audience</span>
-                  <span style="font-size:13px; font-weight:500; color:var(--green); font-family:var(--mono);">8/10</span>
-                </div>
-                <div style="height:5px; background:var(--border); border-radius:3px; overflow:hidden;">
-                  <div style="height:100%; width:80%; background:var(--green); border-radius:3px;"></div>
-                </div>
-                <div style="font-size:11px; color:var(--ink-3); margin-top:4px;">Clear target user · identifiable and reachable</div>
-              </div>
-              <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                  <span style="font-size:13px; color:var(--ink);">Community</span>
-                  <span style="font-size:13px; font-weight:500; color:var(--amber); font-family:var(--mono);">6/10</span>
-                </div>
-                <div style="height:5px; background:var(--border); border-radius:3px; overflow:hidden;">
-                  <div style="height:100%; width:60%; background:#d97706; border-radius:3px;"></div>
-                </div>
-                <div style="font-size:11px; color:var(--ink-3); margin-top:4px;">Growing discussion · no dominant community hub yet</div>
-              </div>
-              <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                  <span style="font-size:13px; color:var(--ink);">Product</span>
-                  <span style="font-size:13px; font-weight:500; color:var(--green); font-family:var(--mono);">8/10</span>
-                </div>
-                <div style="height:5px; background:var(--border); border-radius:3px; overflow:hidden;">
-                  <div style="height:100%; width:80%; background:var(--green); border-radius:3px;"></div>
-                </div>
-                <div style="font-size:11px; color:var(--ink-3); margin-top:4px;">Clear core loop · technically buildable · low complexity</div>
-              </div>
-            </div>
-          </div>
-
+        <div class="ann">
+          DESIGN: Two-column grid — feature priority matrix (left) + market
+          position framework (right). Market Matrix 2x2 highlights "Category
+          King" as where this idea lands, dimming the other three quadrants. ACP
+          Framework shows Audience/Community/Product scores with coloured bars —
+          green/amber mirrors the matrix's colour language. Both frameworks are
+          backed by real PM methodology which builds credibility with founders
+          who want rigour, not just gut-feel advice.
         </div>
-      </div>
-    </div>
-    <div class="ann">DESIGN: Two-column grid — feature priority matrix (left) + market position framework (right). Market Matrix 2x2 highlights "Category King" as where this idea lands, dimming the other three quadrants. ACP Framework shows Audience/Community/Product scores with coloured bars — green/amber mirrors the matrix's colour language. Both frameworks are backed by real PM methodology which builds credibility with founders who want rigour, not just gut-feel advice.</div>
 
+        <div class="divider"></div>
 
-    <div class="divider"></div>
-
-
-    <!-- ══════════════════════════════
+        <!-- ══════════════════════════════
          3 — TECHNICAL COMPLEXITY + STACK
     ══════════════════════════════ -->
-    <div class="sec">
-      <div class="sec-lbl">Technical complexity</div>
-      <div class="sec-sub">Based on your idea type — here's an honest read of how hard this is to build, what stack we'd use, and the tools that'll help you move fastest.</div>
+        <div class="sec">
+          <div class="sec-lbl">Technical complexity</div>
+          <div class="sec-sub">
+            Based on your idea type — here's an honest read of how hard this is
+            to build, what stack we'd use, and the tools that'll help you move
+            fastest.
+          </div>
 
-      <!-- Complexity badge row -->
-      <div style="background:var(--surface); border:0.5px solid var(--border); border-radius:11px; overflow:hidden; margin-bottom:12px;">
-        <div style="display:flex; align-items:flex-start; gap:20px; padding:18px 20px; border-bottom:0.5px solid var(--border);">
-          <div>
-            <div style="font-size:10px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px;">Complexity level</div>
-            <div style="display:inline-flex; align-items:center; gap:8px; padding:8px 18px; background:var(--green-bg); border:0.5px solid var(--green-border); border-radius:7px;">
-              <div style="width:8px; height:8px; border-radius:50%; background:var(--green);"></div>
-              <div style="font-size:15px; font-weight:600; color:var(--green);">Low–Medium</div>
+          <!-- Complexity badge row -->
+          <div
+            style="
+              background: var(--surface);
+              border: 0.5px solid var(--border);
+              border-radius: 11px;
+              overflow: hidden;
+              margin-bottom: 12px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 18px 20px;
+                border-bottom: 0.5px solid var(--border);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: 10px;
+                    font-weight: 600;
+                    letter-spacing: 0.09em;
+                    text-transform: uppercase;
+                    color: var(--ink-3);
+                    margin-bottom: 8px;
+                  "
+                >
+                  Complexity level
+                </div>
+                <div
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 8px 18px;
+                    background: var(--green-bg);
+                    border: 0.5px solid var(--green-border);
+                    border-radius: 7px;
+                  "
+                >
+                  <div
+                    style="
+                      width: 8px;
+                      height: 8px;
+                      border-radius: 50%;
+                      background: var(--green);
+                    "
+                  ></div>
+                  <div
+                    style="
+                      font-size: 15px;
+                      font-weight: 600;
+                      color: var(--green);
+                    "
+                  >
+                    Low–Medium
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  flex: 1;
+                  font-size: 13px;
+                  color: var(--ink-2);
+                  line-height: 1.7;
+                "
+              >
+                Marketplaces are technically moderate complexity — the core
+                listing and search is straightforward, but the two-sided nature
+                (artists + customers) adds auth and data modelling overhead. A
+                focused developer can get a working v1 live in
+                <strong style="color: var(--ink)">6–8 weeks</strong>. The real
+                complexity is in the UX — making discovery feel effortless is a
+                product problem, not an engineering one.
+              </div>
+            </div>
+
+            <!-- Suggested approach -->
+            <div style="padding: 16px 20px; background: var(--ink)">
+              <div
+                style="
+                  font-size: 10px;
+                  font-weight: 600;
+                  letter-spacing: 0.09em;
+                  text-transform: uppercase;
+                  color: rgba(255, 255, 255, 0.4);
+                  margin-bottom: 8px;
+                "
+              >
+                Suggested approach
+              </div>
+              <div
+                style="
+                  font-size: 13px;
+                  color: rgba(255, 255, 255, 0.8);
+                  line-height: 1.7;
+                  font-family: var(--mono);
+                  margin-bottom: 14px;
+                "
+              >
+                Next.js for frontend + Supabase for database, auth, and storage.
+                Google Maps API for location. Cal.com embedded for booking.
+                Vercel for hosting. No custom backend needed at v1 scale.
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 7px">
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.18);
+                    color: white;
+                    border: 0.5px solid rgba(255, 255, 255, 0.3);
+                    font-family: var(--mono);
+                  "
+                >
+                  Next.js
+                </div>
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.18);
+                    color: white;
+                    border: 0.5px solid rgba(255, 255, 255, 0.3);
+                    font-family: var(--mono);
+                  "
+                >
+                  Supabase
+                </div>
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.65);
+                    border: 0.5px solid rgba(255, 255, 255, 0.15);
+                    font-family: var(--mono);
+                  "
+                >
+                  Google Maps API
+                </div>
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.65);
+                    border: 0.5px solid rgba(255, 255, 255, 0.15);
+                    font-family: var(--mono);
+                  "
+                >
+                  Vercel
+                </div>
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.65);
+                    border: 0.5px solid rgba(255, 255, 255, 0.15);
+                    font-family: var(--mono);
+                  "
+                >
+                  Tailwind CSS
+                </div>
+                <div
+                  style="
+                    font-size: 11px;
+                    font-weight: 500;
+                    padding: 4px 11px;
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.65);
+                    border: 0.5px solid rgba(255, 255, 255, 0.15);
+                    font-family: var(--mono);
+                  "
+                >
+                  Stripe
+                </div>
+              </div>
             </div>
           </div>
-          <div style="flex:1; font-size:13px; color:var(--ink-2); line-height:1.7;">
-            Marketplaces are technically moderate complexity — the core listing and search is straightforward, but the two-sided nature (artists + customers) adds auth and data modelling overhead. A focused developer can get a working v1 live in <strong style="color:var(--ink);">6–8 weeks</strong>. The real complexity is in the UX — making discovery feel effortless is a product problem, not an engineering one.
+
+          <!-- AI tools to build faster -->
+          <div
+            style="
+              background: var(--surface);
+              border: 0.5px solid var(--border);
+              border-radius: 11px;
+              padding: 16px 20px;
+            "
+          >
+            <div
+              style="
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: 0.09em;
+                text-transform: uppercase;
+                color: var(--ink-3);
+                margin-bottom: 12px;
+              "
+            >
+              AI tools to build faster
+            </div>
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 12px;
+              "
+            >
+              <a
+                href="#"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 8px 14px;
+                  background: var(--bg);
+                  border: 0.5px solid var(--border);
+                  border-radius: 8px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  text-decoration: none;
+                  color: var(--ink);
+                  transition: border-color 0.12s;
+                "
+              >
+                <div
+                  style="
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 5px;
+                    background: var(--tag);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: var(--ink-2);
+                  "
+                >
+                  L
+                </div>
+                Lovable
+                <span
+                  style="font-size: 11px; color: var(--ink-3); font-weight: 400"
+                  >Frontend-first, great for UI-heavy apps</span
+                >
+              </a>
+              <a
+                href="#"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 8px 14px;
+                  background: var(--bg);
+                  border: 0.5px solid var(--border);
+                  border-radius: 8px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  text-decoration: none;
+                  color: var(--ink);
+                  transition: border-color 0.12s;
+                "
+              >
+                <div
+                  style="
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 5px;
+                    background: var(--tag);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: var(--ink-2);
+                  "
+                >
+                  C
+                </div>
+                Cursor
+                <span
+                  style="font-size: 11px; color: var(--ink-3); font-weight: 400"
+                  >AI code editor for full-stack builds</span
+                >
+              </a>
+              <a
+                href="#"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 8px 14px;
+                  background: var(--bg);
+                  border: 0.5px solid var(--border);
+                  border-radius: 8px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  text-decoration: none;
+                  color: var(--ink);
+                  transition: border-color 0.12s;
+                "
+              >
+                <div
+                  style="
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 5px;
+                    background: var(--tag);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: var(--ink-2);
+                  "
+                >
+                  V0
+                </div>
+                v0 by Vercel
+                <span
+                  style="font-size: 11px; color: var(--ink-3); font-weight: 400"
+                  >Generate UI components instantly</span
+                >
+              </a>
+              <a
+                href="#"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 8px 14px;
+                  background: var(--bg);
+                  border: 0.5px solid var(--border);
+                  border-radius: 8px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  text-decoration: none;
+                  color: var(--ink);
+                  transition: border-color 0.12s;
+                "
+              >
+                <div
+                  style="
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 5px;
+                    background: var(--tag);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: var(--ink-2);
+                  "
+                >
+                  B
+                </div>
+                Bolt
+                <span
+                  style="font-size: 11px; color: var(--ink-3); font-weight: 400"
+                  >Instant full-stack prototypes</span
+                >
+              </a>
+            </div>
+            <a
+              href="#"
+              style="
+                font-size: 12px;
+                color: var(--ink-2);
+                border-bottom: 0.5px solid var(--border);
+                text-decoration: none;
+                padding-bottom: 1px;
+              "
+              >The perfect vibe coding stack for building your MVP in 2026 →</a
+            >
+          </div>
+
+          <!-- Common mistakes -->
+          <div
+            style="
+              margin-top: 12px;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+            "
+          >
+            <div
+              style="
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: 0.09em;
+                text-transform: uppercase;
+                color: var(--ink-3);
+                margin-bottom: 2px;
+              "
+            >
+              Common mistakes to avoid
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 13px 15px;
+                background: var(--amber-bg);
+                border: 0.5px solid var(--amber-border);
+                border-radius: 9px;
+              "
+            >
+              <div style="font-size: 13px; flex-shrink: 0; margin-top: 1px">
+                ⚠
+              </div>
+              <div
+                style="font-size: 13px; color: var(--amber); line-height: 1.6"
+              >
+                <strong
+                  style="display: block; margin-bottom: 2px; font-weight: 500"
+                  >Building for both sides at once</strong
+                >Nail techs won't join without customers. Customers won't come
+                without nail techs. Solve supply first — manually onboard 20
+                artists in one city before building the customer-facing product.
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 13px 15px;
+                background: var(--amber-bg);
+                border: 0.5px solid var(--amber-border);
+                border-radius: 9px;
+              "
+            >
+              <div style="font-size: 13px; flex-shrink: 0; margin-top: 1px">
+                ⚠
+              </div>
+              <div
+                style="font-size: 13px; color: var(--amber); line-height: 1.6"
+              >
+                <strong
+                  style="display: block; margin-bottom: 2px; font-weight: 500"
+                  >Building payments before proving the core loop</strong
+                >Stripe integration takes a week. Validate that users actually
+                complete a booking first — then add payments once the behaviour
+                is confirmed.
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 13px 15px;
+                background: var(--amber-bg);
+                border: 0.5px solid var(--amber-border);
+                border-radius: 9px;
+              "
+            >
+              <div style="font-size: 13px; flex-shrink: 0; margin-top: 1px">
+                ⚠
+              </div>
+              <div
+                style="font-size: 13px; color: var(--amber); line-height: 1.6"
+              >
+                <strong
+                  style="display: block; margin-bottom: 2px; font-weight: 500"
+                  >Launching nationally instead of in one city</strong
+                >Local density is everything in a location-based marketplace.
+                Pick one city, dominate it, then expand. A sparse national
+                launch feels dead on arrival.
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- Suggested approach -->
-        <div style="padding:16px 20px; background:var(--ink);">
-          <div style="font-size:10px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px;">Suggested approach</div>
-          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.7; font-family:var(--mono); margin-bottom:14px;">Next.js for frontend + Supabase for database, auth, and storage. Google Maps API for location. Cal.com embedded for booking. Vercel for hosting. No custom backend needed at v1 scale.</div>
-          <div style="display:flex; flex-wrap:wrap; gap:7px;">
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.18); color:white; border:0.5px solid rgba(255,255,255,0.3); font-family:var(--mono);">Next.js</div>
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.18); color:white; border:0.5px solid rgba(255,255,255,0.3); font-family:var(--mono);">Supabase</div>
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65); border:0.5px solid rgba(255,255,255,0.15); font-family:var(--mono);">Google Maps API</div>
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65); border:0.5px solid rgba(255,255,255,0.15); font-family:var(--mono);">Vercel</div>
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65); border:0.5px solid rgba(255,255,255,0.15); font-family:var(--mono);">Tailwind CSS</div>
-            <div style="font-size:11px; font-weight:500; padding:4px 11px; border-radius:5px; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65); border:0.5px solid rgba(255,255,255,0.15); font-family:var(--mono);">Stripe</div>
-          </div>
+        <div class="ann">
+          DESIGN NOTE: Tech complexity section has three layers — complexity
+          badge + plain English explanation, dark recommended stack card with
+          mono tech pills, and AI tools as clickable chips with inline
+          descriptions. Mistakes are idea-specific to the nail artist
+          marketplace.
         </div>
-      </div>
 
-      <!-- AI tools to build faster -->
-      <div style="background:var(--surface); border:0.5px solid var(--border); border-radius:11px; padding:16px 20px;">
-        <div style="font-size:10px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:12px;">AI tools to build faster</div>
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-          <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 14px; background:var(--bg); border:0.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:500; text-decoration:none; color:var(--ink); transition:border-color 0.12s;">
-            <div style="width:22px; height:22px; border-radius:5px; background:var(--tag); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--ink-2);">L</div>
-            Lovable
-            <span style="font-size:11px; color:var(--ink-3); font-weight:400;">Frontend-first, great for UI-heavy apps</span>
-          </a>
-          <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 14px; background:var(--bg); border:0.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:500; text-decoration:none; color:var(--ink); transition:border-color 0.12s;">
-            <div style="width:22px; height:22px; border-radius:5px; background:var(--tag); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--ink-2);">C</div>
-            Cursor
-            <span style="font-size:11px; color:var(--ink-3); font-weight:400;">AI code editor for full-stack builds</span>
-          </a>
-          <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 14px; background:var(--bg); border:0.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:500; text-decoration:none; color:var(--ink); transition:border-color 0.12s;">
-            <div style="width:22px; height:22px; border-radius:5px; background:var(--tag); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--ink-2);">V0</div>
-            v0 by Vercel
-            <span style="font-size:11px; color:var(--ink-3); font-weight:400;">Generate UI components instantly</span>
-          </a>
-          <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 14px; background:var(--bg); border:0.5px solid var(--border); border-radius:8px; font-size:13px; font-weight:500; text-decoration:none; color:var(--ink); transition:border-color 0.12s;">
-            <div style="width:22px; height:22px; border-radius:5px; background:var(--tag); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--ink-2);">B</div>
-            Bolt
-            <span style="font-size:11px; color:var(--ink-3); font-weight:400;">Instant full-stack prototypes</span>
-          </a>
-        </div>
-        <a href="#" style="font-size:12px; color:var(--ink-2); border-bottom:0.5px solid var(--border); text-decoration:none; padding-bottom:1px;">The perfect vibe coding stack for building your MVP in 2026 →</a>
-      </div>
+        <div class="divider"></div>
 
-      <!-- Common mistakes -->
-      <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:10px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:2px;">Common mistakes to avoid</div>
-        <div style="display:flex; align-items:flex-start; gap:12px; padding:13px 15px; background:var(--amber-bg); border:0.5px solid var(--amber-border); border-radius:9px;">
-          <div style="font-size:13px; flex-shrink:0; margin-top:1px;">⚠</div>
-          <div style="font-size:13px; color:var(--amber); line-height:1.6;"><strong style="display:block; margin-bottom:2px; font-weight:500;">Building for both sides at once</strong>Nail techs won't join without customers. Customers won't come without nail techs. Solve supply first — manually onboard 20 artists in one city before building the customer-facing product.</div>
-        </div>
-        <div style="display:flex; align-items:flex-start; gap:12px; padding:13px 15px; background:var(--amber-bg); border:0.5px solid var(--amber-border); border-radius:9px;">
-          <div style="font-size:13px; flex-shrink:0; margin-top:1px;">⚠</div>
-          <div style="font-size:13px; color:var(--amber); line-height:1.6;"><strong style="display:block; margin-bottom:2px; font-weight:500;">Building payments before proving the core loop</strong>Stripe integration takes a week. Validate that users actually complete a booking first — then add payments once the behaviour is confirmed.</div>
-        </div>
-        <div style="display:flex; align-items:flex-start; gap:12px; padding:13px 15px; background:var(--amber-bg); border:0.5px solid var(--amber-border); border-radius:9px;">
-          <div style="font-size:13px; flex-shrink:0; margin-top:1px;">⚠</div>
-          <div style="font-size:13px; color:var(--amber); line-height:1.6;"><strong style="display:block; margin-bottom:2px; font-weight:500;">Launching nationally instead of in one city</strong>Local density is everything in a location-based marketplace. Pick one city, dominate it, then expand. A sparse national launch feels dead on arrival.</div>
-        </div>
-      </div>
-    </div>
-    <div class="ann">DESIGN NOTE: Tech complexity section has three layers — complexity badge + plain English explanation, dark recommended stack card with mono tech pills, and AI tools as clickable chips with inline descriptions. Mistakes are idea-specific to the nail artist marketplace.</div>
-
-
-    <div class="divider"></div>
-
-
-    <!-- ══════════════════════════════
+        <!-- ══════════════════════════════
          4 — GET YOUR FIRST 100 USERS
     ══════════════════════════════ -->
-    <div class="sec">
-      <div class="sec-lbl">Get your first 100 users</div>
-      <div class="sec-sub">Your idea is a consumer marketplace — your users are already talking about this problem in these exact places. Start here before you build anything.</div>
-
-      <!-- PERSONALISED COMMUNITIES -->
-      <div style="font-size:11px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px;">Where your users already are</div>
-      <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:20px;">
-
-        <div style="display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:0.5px solid var(--border); border-radius:9px;">
-          <div style="min-width:22px;"><div style="width:7px; height:7px; border-radius:50%; background:var(--green); margin-top:5px;"></div></div>
-          <div style="flex:1;">
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">r/beauty · r/Nails · r/malegrooming</div>
-            <div style="font-size:12px; color:var(--ink-3); line-height:1.5;">People actively asking "does anyone know a good nail tech in [city]?" — these threads are warm leads. Reply with your tool, not a link dump.</div>
+        <div class="sec">
+          <div class="sec-lbl">Get your first 100 users</div>
+          <div class="sec-sub">
+            Your idea is a consumer marketplace — your users are already talking
+            about this problem in these exact places. Start here before you
+            build anything.
           </div>
-          <div style="font-size:10px; font-weight:600; padding:3px 9px; border-radius:5px; background:var(--green-bg); color:var(--green); border:0.5px solid var(--green-border); flex-shrink:0;">Start here</div>
+
+          <!-- PERSONALISED COMMUNITIES -->
+          <div
+            style="
+              font-size: 11px;
+              font-weight: 600;
+              letter-spacing: 0.09em;
+              text-transform: uppercase;
+              color: var(--ink-3);
+              margin-bottom: 8px;
+            "
+          >
+            Where your users already are
+          </div>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 7px;
+              margin-bottom: 20px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 13px 16px;
+                background: var(--surface);
+                border: 0.5px solid var(--border);
+                border-radius: 9px;
+              "
+            >
+              <div style="min-width: 22px">
+                <div
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: var(--green);
+                    margin-top: 5px;
+                  "
+                ></div>
+              </div>
+              <div style="flex: 1">
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  r/beauty · r/Nails · r/malegrooming
+                </div>
+                <div
+                  style="font-size: 12px; color: var(--ink-3); line-height: 1.5"
+                >
+                  People actively asking "does anyone know a good nail tech in
+                  [city]?" — these threads are warm leads. Reply with your tool,
+                  not a link dump.
+                </div>
+              </div>
+              <div
+                style="
+                  font-size: 10px;
+                  font-weight: 600;
+                  padding: 3px 9px;
+                  border-radius: 5px;
+                  background: var(--green-bg);
+                  color: var(--green);
+                  border: 0.5px solid var(--green-border);
+                  flex-shrink: 0;
+                "
+              >
+                Start here
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 13px 16px;
+                background: var(--surface);
+                border: 0.5px solid var(--border);
+                border-radius: 9px;
+              "
+            >
+              <div style="min-width: 22px">
+                <div
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: var(--border-mid);
+                    margin-top: 5px;
+                  "
+                ></div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  Instagram — nail tech hashtags
+                </div>
+                <div
+                  style="font-size: 12px; color: var(--ink-3); line-height: 1.5"
+                >
+                  Your supply side. DM artists directly — they're running their
+                  business through DMs and will want a better way. One
+                  frustrated nail tech = 50 future listings.
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 13px 16px;
+                background: var(--surface);
+                border: 0.5px solid var(--border);
+                border-radius: 9px;
+              "
+            >
+              <div style="min-width: 22px">
+                <div
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: var(--border-mid);
+                    margin-top: 5px;
+                  "
+                ></div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  Local Facebook groups + Nextdoor
+                </div>
+                <div
+                  style="font-size: 12px; color: var(--ink-3); line-height: 1.5"
+                >
+                  Hyperlocal and high-trust. People ask for service
+                  recommendations here constantly — post as a local, not as a
+                  startup founder.
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 13px 16px;
+                background: var(--surface);
+                border: 0.5px solid var(--border);
+                border-radius: 9px;
+              "
+            >
+              <div style="min-width: 22px">
+                <div
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: var(--border-mid);
+                    margin-top: 5px;
+                  "
+                ></div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  TikTok — nail art search
+                </div>
+                <div
+                  style="font-size: 12px; color: var(--ink-3); line-height: 1.5"
+                >
+                  Post a "how I find nail artists near me" video. Show the
+                  problem (the Instagram scroll), then your tool as the
+                  solution. No ad spend needed at this stage.
+                </div>
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 13px 16px;
+                background: var(--surface);
+                border: 0.5px solid var(--border);
+                border-radius: 9px;
+              "
+            >
+              <div style="min-width: 22px">
+                <div
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: var(--border-mid);
+                    margin-top: 5px;
+                  "
+                ></div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--ink);
+                    margin-bottom: 2px;
+                  "
+                >
+                  Product Hunt + Indie Hackers
+                </div>
+                <div
+                  style="font-size: 12px; color: var(--ink-3); line-height: 1.5"
+                >
+                  Register a Product Hunt upcoming page now. Document your build
+                  on Indie Hackers — the community rewards transparency and
+                  gives early distribution.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SINGLE CTA — newsletter as "how to use AI to find communities" -->
         </div>
 
-        <div style="display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:0.5px solid var(--border); border-radius:9px;">
-          <div style="min-width:22px;"><div style="width:7px; height:7px; border-radius:50%; background:var(--border-mid); margin-top:5px;"></div></div>
+        <div class="divider"></div>
+
+        <!-- NEXT STEP -->
+        <a class="next-link" href="#" style="margin-bottom: 4rem">
           <div>
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">Instagram — nail tech hashtags</div>
-            <div style="font-size:12px; color:var(--ink-3); line-height:1.5;">Your supply side. DM artists directly — they're running their business through DMs and will want a better way. One frustrated nail tech = 50 future listings.</div>
+            <div class="next-lbl">Next step</div>
+            <div class="next-title">How to start — your 30-day launch plan</div>
           </div>
+          <div class="next-arr">→</div>
+        </a>
+        <div class="ann">
+          NEXT STEP: Navigation prompt only — no competing CTA. Sits cleanly at
+          the bottom after all value has been delivered.
         </div>
-
-        <div style="display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:0.5px solid var(--border); border-radius:9px;">
-          <div style="min-width:22px;"><div style="width:7px; height:7px; border-radius:50%; background:var(--border-mid); margin-top:5px;"></div></div>
-          <div>
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">Local Facebook groups + Nextdoor</div>
-            <div style="font-size:12px; color:var(--ink-3); line-height:1.5;">Hyperlocal and high-trust. People ask for service recommendations here constantly — post as a local, not as a startup founder.</div>
-          </div>
-        </div>
-
-        <div style="display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:0.5px solid var(--border); border-radius:9px;">
-          <div style="min-width:22px;"><div style="width:7px; height:7px; border-radius:50%; background:var(--border-mid); margin-top:5px;"></div></div>
-          <div>
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">TikTok — nail art search</div>
-            <div style="font-size:12px; color:var(--ink-3); line-height:1.5;">Post a "how I find nail artists near me" video. Show the problem (the Instagram scroll), then your tool as the solution. No ad spend needed at this stage.</div>
-          </div>
-        </div>
-
-        <div style="display:flex; align-items:flex-start; gap:14px; padding:13px 16px; background:var(--surface); border:0.5px solid var(--border); border-radius:9px;">
-          <div style="min-width:22px;"><div style="width:7px; height:7px; border-radius:50%; background:var(--border-mid); margin-top:5px;"></div></div>
-          <div>
-            <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:2px;">Product Hunt + Indie Hackers</div>
-            <div style="font-size:12px; color:var(--ink-3); line-height:1.5;">Register a Product Hunt upcoming page now. Document your build on Indie Hackers — the community rewards transparency and gives early distribution.</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- SINGLE CTA — newsletter as "how to use AI to find communities" -->
-      <div style="background:var(--surface); border:0.5px solid var(--border); border-radius:11px; padding:18px 20px;">
-        <div style="font-size:13px; font-weight:500; color:var(--ink); margin-bottom:4px;">How to use AI to find the exact communities where your users already are</div>
-        <div style="font-size:13px; color:var(--ink-2); line-height:1.65; margin-bottom:14px;">We send one practical guide per week to founders building their first product — this week's is a step-by-step on using ChatGPT + Reddit search to find the exact threads where your users are already venting about the problem you're solving.</div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <input type="email" placeholder="your@email.com" style="flex:1; min-width:180px; padding:10px 13px; border:0.5px solid var(--border); border-radius:8px; font-size:13px; font-family:inherit; outline:none; background:var(--bg); color:var(--ink);" />
-          <button style="padding:10px 18px; background:var(--ink); color:white; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; font-family:inherit; white-space:nowrap;">Send me the guide →</button>
-        </div>
-        <div style="font-size:11px; color:var(--ink-3); margin-top:8px;">One email per week · No spam · Unsubscribe any time</div>
-      </div>
-      <div class="ann">SINGLE CTA: Framed as a specific valuable resource, not a newsletter sign-up. "Send me the guide →" is outcome-specific. This is the only CTA in this section — captures the email and routes them into the Crework ecosystem naturally after they've received genuine value.</div>
-
+      </main>
     </div>
 
-
-    <div class="divider"></div>
-
-
-    <!-- NEXT STEP -->
-    <a class="next-link" href="#" style="margin-bottom:4rem;">
-      <div>
-        <div class="next-lbl">Next step</div>
-        <div class="next-title">How to start — your 30-day launch plan</div>
-      </div>
-      <div class="next-arr">→</div>
-    </a>
-    <div class="ann">NEXT STEP: Navigation prompt only — no competing CTA. Sits cleanly at the bottom after all value has been delivered.</div>
-
-  </main>
-</div>
-
-<script>
-function copyMsg(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = 'Copied!';
-    btn.style.background = '#1e5c38';
-    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2000);
-  });
-}
-</script>
-</body>
+    <script>
+      function copyMsg(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const orig = btn.textContent;
+          btn.textContent = "Copied!";
+          btn.style.background = "#1e5c38";
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.style.background = "";
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
 </html>
