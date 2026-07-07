@@ -16,6 +16,12 @@ model Lead {
   q3         String?
   q4         String?
   leadTag    String?  @map("lead_tag")
+  reportA       Json?    @map("report_a")
+  reportASource String?  @map("report_a_source")
+  reportB       Json?    @map("report_b")
+  reportBSource String?  @map("report_b_source")
+  reportC       Json?    @map("report_c")
+  reportCSource String?  @map("report_c_source")
   capturedAt DateTime @default(now()) @map("captured_at") @db.Timestamptz(6)
 
   @@map("leads")

@@ -1,40 +1,48 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { sendReportEmail } from '@/lib/resend'
-import { prisma } from '@/lib/prisma'
-import type { CaptureEmailRequest, LeadTag, Q4Answer } from '@/types'
-
-// ─── Lead tag logic ───────────────────────────────────────────────────────────
-
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import type { CaptureEmailRequest, LeadTag, Q4Answer } from "@/types";
+const ALLOWED_ORIGIN = process.env.FRONTEND_URL || "http://localhost:3000";
 function deriveLeadTag(q4: Q4Answer | null): LeadTag {
   switch (q4) {
-    case 'waitlist':    return 'HOT'
-    case 'few_convos':  return 'WARM'
-    default:            return 'NURTURE'
+    case "waitlist":
+      return "HOT";
+    case "few_convos":
+      return "WARM";
+    default:
+      return "NURTURE";
   }
 }
-
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
 export async function POST(req: NextRequest) {
   try {
-    const body: CaptureEmailRequest = await req.json()
+    const body: CaptureEmailRequest = await req.json();
 
-    if (!body.email || !body.email.includes('@')) {
+    if (!body.email || !body.email.includes("@")) {
       return NextResponse.json(
-        { error: 'Valid email is required' },
-        { status: 400 }
-      )
+        { error: "Valid email is required" },
+        { status: 400 },
+      );
     }
 
     if (!body.sessionId) {
       return NextResponse.json(
-        { error: 'sessionId is required' },
-        { status: 400 }
-      )
+        { error: "sessionId is required" },
+        { status: 400 },
+      );
     }
 
-    // Derive lead tag from Q4 seriousness answer
-    const leadTag = deriveLeadTag(body.q4)
+    const leadTag = deriveLeadTag(body.q4);
 
-    // Upsert lead via Prisma. Do not fail the request if DB write fails.
     try {
       await prisma.lead.upsert({
         where: { sessionId: body.sessionId },
@@ -59,36 +67,19 @@ export async function POST(req: NextRequest) {
           leadTag,
           capturedAt: new Date(),
         },
-      })
+      });
     } catch (dbError) {
-      console.error('[capture-email] Prisma error:', dbError)
-      // Don't fail the request — email was still sent
+      console.error("[capture-email] Prisma error:", dbError);
     }
 
-    // Build the report URL — frontend handles showing the full report
-    const reportUrl = `${process.env.FRONTEND_URL ?? 'http://localhost:3000'}/report`
-
-    // Send email via Resend (non-blocking — don't fail the request if email fails)
-    try {
-      await sendReportEmail({
-        to: body.email,
-        ideaSummary: body.quiz.q2 || 'your startup idea',
-        archetype: body.archetype ?? 'saas_tool',
-        reportUrl,
-      })
-    } catch (emailError) {
-      // Log but don't block — user still gets their report
-      console.error('[capture-email] Resend failed:', emailError)
-    }
-
-    return NextResponse.json({
-      success: true,
-      leadTag,
-    })
+    const res = NextResponse.json({ success: true, leadTag });
+    res.headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+    res.headers.set("Access-Control-Allow-Credentials", "true");
+    return res;
   } catch {
     return NextResponse.json(
-      { error: 'Failed to capture email' },
-      { status: 500 }
-    )
+      { error: "Failed to capture email" },
+      { status: 500 },
+    );
   }
 }
