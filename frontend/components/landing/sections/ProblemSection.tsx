@@ -26,13 +26,25 @@ export function ProblemSection({ headingFontClass, bodyFontClass }: ProblemSecti
           return (
             <article
               key={card.title}
-              className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01))] p-5 shadow-[0px_0px_6px_0px_#00000040]"
+              className="group relative overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(140deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01))] p-5 shadow-[0px_0px_6px_0px_#00000040] transition-colors duration-300 hover:border-[#FFB59B]/30"
             >
-              <Icon className="h-6 w-6 text-[#FFB59B]" strokeWidth={1.8} />
-              <h3 className={`mt-4 text-[22px] font-bold leading-7 text-white ${headingFontClass}`}>{card.title}</h3>
-              <p className={`mt-2.5 text-[14px] leading-[1.62] text-[#A8A29E] ${bodyFontClass}`}>{card.description}</p>
+              <div className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-[#FFB59B]/0 blur-2xl transition-colors duration-500 group-hover:bg-[#FFB59B]/10" />
+
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#FFB59B]/20 bg-[#FFB59B]/10">
+                <Icon className="h-5 w-5 text-[#FFB59B]" strokeWidth={1.8} />
+              </div>
+              <h3
+                className={`mt-4 text-[22px] font-bold leading-7 text-white ${headingFontClass}`}
+              >
+                {card.title}
+              </h3>
+              <p
+                className={`mt-2.5 text-[14px] leading-[1.62] text-[#A8A29E] ${bodyFontClass}`}
+              >
+                {card.description}
+              </p>
             </article>
-          )
+          );
         })}
       </div>
     </section>
